@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="font-size:18px;">
     hello world!!!!
   </div>
 </template>
