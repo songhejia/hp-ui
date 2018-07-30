@@ -10,7 +10,7 @@
     "lint": "vue-cli-service lint",
     "build:file": "node build/build-entry.js",
     "build:components": "node build/build-components.js --color",
-    "build:lib": "npm version patch & node build/build-lib.js",
+    "build:lib": "node build/build-lib.js",
     "publish": "npm publish"
   },
   "dependencies": {

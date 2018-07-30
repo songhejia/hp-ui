@@ -7,7 +7,7 @@ const { Signale } = signale;
 const tasks = [
   'build:entry',
   'build:components',
-  'build'
+  // 'build'
 ];
 
 tasks.forEach(task => {
@@ -15,6 +15,8 @@ tasks.forEach(task => {
 
   // const interactive = new Signale({ interactive: true });
   // interactive.pending(task);
-  shell.exec(`npm run ${task} --silent`);
+  const cmd = `npm run ${task} --silent`;
+  console.log('执行命令：', cmd)
+  shell.exec(cmd);
   // interactive.success(task);
 });
