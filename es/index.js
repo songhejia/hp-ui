@@ -1,6 +1,6 @@
 // This file is auto gererated by build/build-entry.js
 import Hello from './hello';
-var version = '0.1.7';
+var version = '0.1.8';
 var components = [Hello];
 var install = function install(Vue) {
   components.forEach(function (Component) {
