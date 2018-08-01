@@ -6,11 +6,13 @@
   "module": "es/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "dev": "npm run build:file && webpack-serve --config build/webpack.dev.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build:file": "node build/build-entry.js",
     "build:components": "node build/build-components.js --color",
-    "build:lib": "node build/build-lib.js"
+    "build:lib": "node build/build-lib.js",
+    "build:hpui": "cross-env NODE_ENV=production webpack --color --config build/webpack.build.js && cross-env NODE_ENV=production webpack -p --color --config build/webpack.build.js"
   },
   "dependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -26,11 +28,15 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "cross-env": "^5.2.0",
+    "progress-bar-webpack-plugin": "^1.11.0",
     "shelljs": "^0.8.2",
     "signale": "^1.2.1",
     "transform-runtime": "0.0.0",
     "vue-sfc-compiler": "0.0.8",
-    "vue-template-compiler": "^2.5.16"
+    "vue-template-compiler": "^2.5.16",
+    "webpack-cli": "^3.1.0",
+    "webpack-command": "^0.4.1"
   },
   "eslintConfig": {
     "root": true,
