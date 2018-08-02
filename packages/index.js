@@ -1,6 +1,6 @@
 // This file is auto gererated by build/build-entry.js
 import Hello from './hello';
-const version = '0.1.13';
+const version = '0.1.14';
 const components = [
   Hello
 ];
