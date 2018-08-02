@@ -22,7 +22,7 @@ const components = [
 ];
 const install = Vue => {
   components.forEach(Component => {
-    Vue.use(Component);
+    Vue.use(Component.name,Component);
   });
 };
 /* istanbul ignore if */
