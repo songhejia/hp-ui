@@ -5,15 +5,15 @@ const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
   mode: 'development',
-  entry: {
-    'vant-docs': './docs/src/index.js',
-    'vant-mobile': './docs/src/mobile.js'
-  },
-  output: {
-    path: path.join(__dirname, '../docs/dist'),
-    publicPath: '/',
-    chunkFilename: 'async_[name].js'
-  },
+  // entry: {
+  //   'vant-docs': './docs/src/index.js',
+  //   'vant-mobile': './docs/src/mobile.js'
+  // },
+  // output: {
+  //   path: path.join(__dirname, '../docs/dist'),
+  //   publicPath: '/',
+  //   chunkFilename: 'async_[name].js'
+  // },
   stats: {
     modules: false,
     children: false
@@ -78,17 +78,17 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new ProgressBarPlugin(),
-    new HtmlWebpackPlugin({
-      chunks: ['vant-docs'],
-      template: 'docs/src/index.tpl',
-      filename: 'index.html',
-      inject: true
-    }),
-    new HtmlWebpackPlugin({
-      chunks: ['vant-mobile'],
-      template: 'docs/src/index.tpl',
-      filename: 'mobile.html',
-      inject: true
-    })
+    // new HtmlWebpackPlugin({
+    //   chunks: ['vant-docs'],
+    //   template: 'docs/src/index.tpl',
+    //   filename: 'index.html',
+    //   inject: true
+    // }),
+    // new HtmlWebpackPlugin({
+    //   chunks: ['vant-mobile'],
+    //   template: 'docs/src/index.tpl',
+    //   filename: 'mobile.html',
+    //   inject: true
+    // })
   ]
 };
