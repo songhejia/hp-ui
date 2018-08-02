@@ -2,7 +2,7 @@
   "name": "hp-ui",
   "version": "0.1.12",
   "private": false,
-  "main": "lib/index.js",
+  "main": "packages/index.js",
   "module": "es/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
