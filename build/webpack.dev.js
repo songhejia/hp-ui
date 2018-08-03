@@ -72,6 +72,10 @@ module.exports = {
       {
         test: /\.(ttf|svg)$/,
         loader: 'url-loader'
+      },
+      {
+        test: /\.pug$/,
+        loader: 'pug'
       }
     ]
   },
