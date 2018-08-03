@@ -42,6 +42,21 @@ export default {
 
   fs.writeFileSync(path.join(__dirname, '../packages/index.js'), content);
 }
+function buildDemoEntry() {
+  const dir = path.join(__dirname, '../packages');
+  const demos = fs.readdirSync(dir)
+    .filter(name => fs.existsSync(path.join(dir, `${name}/demo/index.vue`)))
+    .map(name => `'${name}': () => wrapper(import('../../packages/${name}/demo'), '${name}')`);
 
+  const content = `${tips}
+import { wrapper } from './demo-common';
+
+export default {
+  ${demos.join(',\n  ')}
+};
+`;
+  fs.writeFileSync(path.join(dir, '../docs/src/demo-entry.js'), content);
+}
 
 buildHPUIEntry()
+// buildDemoEntry()
