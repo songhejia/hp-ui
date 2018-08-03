@@ -1,21 +1,12 @@
 # hp-ui
 
-## Project setup
+## install
 ```
-npm install
-```
+npm install hp-ui -D
 
-### Compiles and hot-reloads for development
+## use
 ```
-npm run serve
-```
+import HPUI from 'hp-ui'
+Vue.use(HPUI)
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+<hp-hello></hp-hello>

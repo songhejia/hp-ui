@@ -4,7 +4,6 @@
   "private": false,
   "main": "lib/index.js",
   "module": "es/index.js",
-  "typings": "types/index.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
     "dev": "npm run build:file && webpack-serve --config build/webpack.dev.js",
@@ -21,6 +20,10 @@
     "uppercamelcase": "^3.0.0",
     "vue": "^2.5.17"
   },
+  "keywords": [
+    "vue",
+    "hp-ui"
+  ],
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.55",
     "@babel/preset-env": "^7.0.0-beta.55",
