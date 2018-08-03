@@ -1,12 +1,12 @@
 <template>
   <div style="font-size:18px;">
-    hello world!!!!
-    你好吗
+    hello world!!!! 你好吗
   </div>
 </template>
 <script>
-export default {
+import create from '../utils/create'
+export default create({
   name: 'hello'
-}
+})
 </script>
 
