@@ -4,7 +4,8 @@
   </div>
 </template>
 <script>
-export default {
+import create from '../utils/create'
+export default create({
   name: 'ahello'
-}
+})
 </script>

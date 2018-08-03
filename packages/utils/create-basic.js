@@ -17,6 +17,6 @@ export default function (sfc) {
   sfc.mixins.push(i18n, bem);
   sfc.methods = sfc.methods || {};
   sfc.methods.isDef = isDef;
-
+  console.log('sfc', sfc)
   return sfc;
 };

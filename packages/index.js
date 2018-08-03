@@ -1,14 +1,14 @@
 // This file is auto gererated by build/build-entry.js
 import Ahello from './ahello';
 import Hello from './hello';
-const version = '0.1.20';
+const version = '0.1.21';
 const components = [
   Ahello,
   Hello
 ];
 const install = Vue => {
   components.forEach(Component => {
-    Vue.use(Component.name,Component);
+    Vue.use(Component);
   });
 };
 /* istanbul ignore if */
