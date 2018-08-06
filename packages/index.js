@@ -4,7 +4,7 @@ import Layout from './layout';
 import LayoutItem from './layout-item';
 import Menu from './menu';
 import TopNavBar from './top-nav-bar';
-const version = '0.1.24';
+const version = '0.1.25';
 const components = [
   Hello,
   Layout,
