@@ -7,15 +7,14 @@ delete config.serve;
 module.exports = Object.assign(config, {
   mode: 'production',
   entry: {
-    'hp-ui': path.join(__dirname, '../es/index.js')
+    'hp-ui': path.join(__dirname, '../packages/index.js')
   },
   output: {
     path: path.join(__dirname, '../lib'),
-    library: 'hp-ui',
+    library: 'HPUI',
     libraryTarget: 'umd',
     filename: isMinify ? '[name].min.js' : '[name].js',
-    umdNamedDefine: true,
-    globalObject: 'this'
+    umdNamedDefine: true
   },
   externals: {
     vue: {
