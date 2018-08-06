@@ -1,15 +1,17 @@
 // This file is auto gererated by build/build-entry.js
 import Hello from './hello';
 import Layout from './layout';
+import LayoutContainer from './layout-container';
 import LayoutItem from './layout-item';
-import Menu from './menu';
+import MenuList from './menu-list';
 import TopNavBar from './top-nav-bar';
 const version = '0.1.25';
 const components = [
   Hello,
   Layout,
+  LayoutContainer,
   LayoutItem,
-  Menu,
+  MenuList,
   TopNavBar
 ];
 const install = Vue => {
@@ -26,8 +28,9 @@ export {
   version,
   Hello,
   Layout,
+  LayoutContainer,
   LayoutItem,
-  Menu,
+  MenuList,
   TopNavBar
 };
 export default {

@@ -4,6 +4,7 @@
             horizontal
             class="hp-menu-container">
       <div v-for="(menu,index) in menus"
+           :key="index"
            :slot="'item-'+(index+1)"
            class="hp-menu-item">
         <a :href="menu.path"
@@ -24,7 +25,7 @@ export default create({
     menus: Array
   },
   mounted() {
-    console.log('menus', this.menus)
+
   }
 })
 </script>

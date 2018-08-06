@@ -11,7 +11,8 @@
              class="top-nav-bar-brand">
           <!-- <zp-icon-button name="bars"
                       dark/> -->
-          <span>智联</span>
+          <i class="fa fa-reorder top-nav-bar-brand-icon"></i>
+          <span>卓聘</span>
         </div>
         <div slot="item-2">
           <menu-list :menus="menus"
@@ -116,6 +117,11 @@ export default create({
       &:hover {
         background-color: #191a1f;
       }
+    }
+  }
+  &-brand {
+    &-icon {
+      padding: 0 5px;
     }
   }
 }

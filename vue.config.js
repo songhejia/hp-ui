@@ -16,5 +16,6 @@ module.exports = {
     // .use('pug-loader')
     // .loader('pug-loader')
     config.module.rule('jade')
+    config.module.rule('less')
   }
 }

@@ -17,6 +17,9 @@
   },
   "dependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
+    "font-awesome-webpack": "0.0.5-beta.2",
+    "less": "^3.8.0",
+    "less-loader": "^4.1.0",
     "uppercamelcase": "^3.0.0",
     "vue": "^2.5.17"
   },
@@ -33,6 +36,7 @@
     "@vue/eslint-config-prettier": "^3.0.0-rc.5",
     "@vue/server-test-utils": "^1.0.0-beta.23",
     "@vue/test-utils": "^1.0.0-beta.23",
+    "FontAwesome-webpack": "0.0.2",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.5",
@@ -42,6 +46,7 @@
     "browserify": "^16.2.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
+    "font-awesome": "^4.7.0",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "jest": "^23.4.2",
