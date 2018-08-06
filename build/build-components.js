@@ -5,10 +5,15 @@ const fs = require('fs-extra');
 const path = require('path');
 const babel = require('babel-core');
 const compiler = require('vue-sfc-compiler');
+// var compiler = require('vueify').compiler
 
 const esDir = path.join(__dirname, '../es');
 const libDir = path.join(__dirname, '../lib');
 const srcDir = path.join(__dirname, '../packages');
+
+var browserify = require('browserify')
+var vueify = require('vueify')
+
 const compilerOption = {
   babel: {
     extends: path.join(__dirname, '../.babelrc')
@@ -23,7 +28,6 @@ fs.emptyDirSync(libDir);
 
 // copy packages
 fs.copySync(srcDir, esDir);
-
 compile(esDir);
 
 function compile(dir, jsOnly = false) {
@@ -46,8 +50,20 @@ function compile(dir, jsOnly = false) {
       const outputVuePath = absolutePath + '.js';
       const outputJsPath = absolutePath.replace('.vue', '.js');
       const output = fs.existsSync(outputJsPath) ? outputVuePath : outputJsPath;
-
+      // console.log('compile', source)
       fs.outputFileSync(output, compiler(source, compilerOption).js);
+      // console.log('absolutePath', absolutePath)
+      // process.env.NODE_ENV = 'production'
+      // console.log('process.env.NODE_ENV ', process.env.NODE_ENV)
+      // compiler.compile(source, output, function (err, result) {
+      //   console.log('result', result)
+      //   fs.outputFileSync(output, result)
+      // })
+      // // browserify(absolutePath)
+      // //   .transform(vueify)
+      // //   .bundle()
+      // //   .pipe(require('fs').createWriteStream(output))//fs.outputFileSync(output)
+      // console.log('output', output)
     } else if (/\.js$/.test(file)) {
       const { code } = babel.transformFileSync(absolutePath, compilerOption.babel);
       fs.outputFileSync(absolutePath, code);

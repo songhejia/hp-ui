@@ -1,7 +1,10 @@
-<template lang="pug">
-  .hp-layout-item
-    .hp-layout-container
-      slot
+<template>
+  <div class="hp-layout-item">
+    <div class="hp-layout-container">
+      <slot></slot>
+    </div>
+  </div>
+
 </template>
 <script>
 import create from '../utils/create'

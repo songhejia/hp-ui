@@ -7,7 +7,7 @@ const { Signale } = signale;
 const tasks = [
   'build:file',
   'build:components',
-  'build:hpui'
+  // 'build:hpui'
 ];
 
 tasks.forEach(task => {

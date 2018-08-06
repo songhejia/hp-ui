@@ -7,7 +7,7 @@ delete config.serve;
 module.exports = Object.assign(config, {
   mode: 'production',
   entry: {
-    'hp-ui': './es/index.js'
+    'hp-ui': path.join(__dirname, '../es/index.js')
   },
   output: {
     path: path.join(__dirname, '../lib'),

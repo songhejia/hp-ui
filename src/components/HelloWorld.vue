@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import hello from '../../packages/hello/index'
-import layout from '../../packages/Layout'
+import hello from '../../packages/hello'
+import layout from '../../packages/layout'
 export default {
   name: "HelloWorld",
   components: {

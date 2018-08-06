@@ -1,11 +1,15 @@
-<template lang="pug">
-  .hp-layout(:class="layoutClass")
-    layout-item(v-for="item in items" :key="item")
-      slot(:name="'item-'+item")
+<template>
+  <div class="hp-layout"
+       :class="layoutClass">
+    <layout-item v-for="item in items"
+                 :key="item">
+      <slot :name="'item-'+item"></slot>
+    </layout-item>
+  </div>
 </template>
 <script>
 import create from '../utils/create'
-import LayoutItem from '../LayoutItem'
+import LayoutItem from '../layout-item'
 export default create({
   name: 'layout',
   components: {

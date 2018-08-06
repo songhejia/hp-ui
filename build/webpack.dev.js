@@ -75,8 +75,13 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        loader: 'pug'
-      }
+        use: [
+          /* config.module.rule('pug').use('pug-plain-loader') */
+          {
+            loader: 'pug-plain-loader'
+          }
+        ]
+      },
     ]
   },
   plugins: [
