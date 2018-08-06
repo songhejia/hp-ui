@@ -1,7 +1,8 @@
 <template>
   <div class="hp-menu">
     <layout :count="menus.length"
-            horizontal>
+            horizontal
+            class="hp-menu-container">
       <div v-for="(menu,index) in menus"
            :slot="'item-'+(index+1)"
            class="hp-menu-item">
@@ -34,8 +35,11 @@ export default create({
       display: inline-block;
       width: 100%;
       height: 100%;
-      color: #fff;
+      color: #afb1bc;
       text-decoration: none;
+      &:hover {
+        color: #ffd329;
+      }
     }
   }
 }

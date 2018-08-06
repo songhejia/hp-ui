@@ -5,7 +5,7 @@ const shell = require('shelljs');
 const signale = require('signale');
 const { Signale } = signale;
 const tasks = [
-  // 'build:file',
+  'build:file',
   // 'build:components',
   'build:hpui'
 ];

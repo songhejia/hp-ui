@@ -99,13 +99,23 @@ export default create({
 </script>
 <style lang="scss">
 .top-nav-bar {
-  background-color: #000;
+  background-color: #3d3f49;
   height: 39px;
   line-height: 39px;
   color: #fff;
   &-container {
     > .hp-layout-item-1 {
       width: 80px;
+    }
+    > .hp-layout-item-2 {
+      width: 400px;
+    }
+  }
+  &-menu {
+    .hp-menu-item {
+      &:hover {
+        background-color: #191a1f;
+      }
     }
   }
 }
