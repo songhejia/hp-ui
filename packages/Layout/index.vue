@@ -2,7 +2,8 @@
   <div class="hp-layout"
        :class="layoutClass">
     <layout-item v-for="item in items"
-                 :key="item">
+                 :key="item"
+                 :index="item">
       <slot :name="'item-'+item"></slot>
     </layout-item>
   </div>

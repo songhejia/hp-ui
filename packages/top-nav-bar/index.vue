@@ -1,21 +1,27 @@
 <template>
-  <zp-layout :count="3"
-             name="top-nav-bar"
-             horizontal>
+  <layout :count="1"
+          horizontal
+          class="top-nav-bar">
+    <layout-container slot="item-1">
+      <layout :count="3"
+              horizontal
+              class="top-nav-bar-container">
 
-    <div slot="item-1"
-         class="top-nav-bar-brand">
-      <zp-icon-button name="bars"
-                      dark/>
-      <span>智联</span>
-    </div>
+        <div slot="item-1"
+             class="top-nav-bar-brand">
+          <!-- <zp-icon-button name="bars"
+                      dark/> -->
+          <span>智联</span>
+        </div>
+        <div slot="item-2">
+          <menu-list :menus="menus"
+                     dark
+                     class="top-nav-bar-menu">
+          </menu-list>
+        </div>
 
-    <zp-menu slot="item-2"
-             :items="menus"
-             dark
-             class="top-nav-bar-menu" />
-
-    <div slot="item-3"
+        <div slot="item-3"></div>
+        <!-- <div slot="item-3"
          class="top-nav-bar-tools">
       <zp-icon-button @click="onCalendarClicked"
                       tool-tip="订单日历"
@@ -67,15 +73,41 @@
                       name="power-off"
                       hover='square'
                       dark/>
-    </div>
+    </div> -->
 
-  </zp-layout>
+      </layout>
+    </layout-container>
+  </layout>
+
 </template>
 <script>
-export default {
+import create from '../utils/create'
+import Layout from '../layout'
+import MenuList from '../menu-list'
+import LayoutContainer from '../layout-container'
+export default create({
   name: 'top-nav-bar',
+  components: {
+    Layout,
+    MenuList,
+    LayoutContainer
+  },
   props: {
     menus: Array
   }
-}
+})
 </script>
+<style lang="scss">
+.top-nav-bar {
+  background-color: #000;
+  height: 39px;
+  line-height: 39px;
+  color: #fff;
+  &-container {
+    > .hp-layout-item-1 {
+      width: 80px;
+    }
+  }
+}
+</style>
+
