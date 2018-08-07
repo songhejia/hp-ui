@@ -13,3 +13,5 @@ echo 'finish'
 fi
 
 echo ""
+
+pause
