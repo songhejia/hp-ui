@@ -22,3 +22,4 @@ yarn-error.log*
 *.tgz
 lib/
 es/
+packages/index.js
