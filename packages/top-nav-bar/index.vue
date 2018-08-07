@@ -34,8 +34,9 @@
                                 name="bell"
                                 hover='square'
                                 dark/> -->
-                <i class="fa fa-bell alert-bell"
-                   hover='square'></i>
+                <icon-button class="alert-bell"
+                             name="bell"
+                             hover='square' />
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="clearfix"
@@ -59,6 +60,9 @@
               </el-dropdown-menu>
             </el-dropdown>
           </el-badge>
+          <icon-button name="gear"
+                       @click="onSetting" />
+          <icon-button name="power-off" />
           <!-- <zp-icon-button v-if="user.Role2!=4"
                           @click="onSetting"
                           tool-tip="设置"
@@ -82,12 +86,14 @@ import create from '../utils/create'
 import Layout from '../layout'
 import MenuList from '../menu-list'
 import LayoutContainer from '../layout-container'
+import IconButton from '../icon-button'
 export default create({
   name: 'top-nav-bar',
   components: {
     Layout,
     MenuList,
-    LayoutContainer
+    LayoutContainer,
+    IconButton
   },
   props: {
     menus: Array,
@@ -98,7 +104,10 @@ export default create({
     }
   },
   methods: {
-    handleCommand() { }
+    handleCommand() { },
+    onSetting() {
+      console.log('onSetting')
+    }
   }
 })
 </script>
@@ -118,15 +127,15 @@ export default create({
     > .hp-layout-item-3 {
       text-align: right;
       .alert-bell {
-        cursor: pointer;
-        color: #afb1bc;
+        // cursor: pointer;
+        // color: #afb1bc;
       }
       .badge-letter-total {
         > .el-badge__content {
           margin-top: 10px;
           padding: 0 2px;
-          right: 4px;
           border: none;
+          right: 20px;
         }
       }
     }
