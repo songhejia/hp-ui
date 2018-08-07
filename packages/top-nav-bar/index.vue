@@ -25,6 +25,7 @@
              class="top-nav-bar-tools">
           <el-badge ref='ref1'
                     :value="letterTotal"
+                    :hidden="!letterTotal"
                     :max="99"
                     class="item badge-letter-total">
             <el-dropdown trigger="hover"
@@ -43,19 +44,22 @@
                                   command="JOB_STATUS_CHANGE">
                   已有职位动态
                   <el-badge class="mark"
-                            :value="letterInfo.jobStatusCount" />
+                            :value="letterInfo.jobStatusCount"
+                            :hidden="!letterInfo.jobStatusCount" />
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix"
                                   command="NEW_JOB">
                   新职位
                   <el-badge class="mark"
-                            :value="letterInfo.newJobCount" />
+                            :value="letterInfo.newJobCount"
+                            :hidden="!letterInfo.newJobCount" />
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix"
                                   command="JOB_OUT">
                   职位转出
                   <el-badge class="mark"
-                            :value="letterInfo.jobOutCount" />
+                            :value="letterInfo.jobOutCount"
+                            :hidden="!letterInfo.jobOutCount" />
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
