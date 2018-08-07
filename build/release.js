@@ -41,4 +41,5 @@ if (shell.exec('npm publish').code !== 0) {
   shell.echo('Error: npm publish failed');
   shell.exit(1);
 }
+
 shell.echo('end 发布npm')
