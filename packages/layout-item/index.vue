@@ -18,6 +18,7 @@ export default create({
   &-item {
     display: table-row;
     box-sizing: border-box;
+    vertical-align: middle;
     // &-container {
     //   margin: 0 auto;
     //   width: 100%;
@@ -26,7 +27,6 @@ export default create({
   }
   &-horizontal > &-item {
     display: table-cell;
-    box-sizing: border-box;
   }
 }
 </style>
