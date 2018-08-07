@@ -1,6 +1,6 @@
 git add .
 
-git commit -am "[release] Auto-commit"
+git commit -am "[release] auto-commit"
 
 npm version patch
 
