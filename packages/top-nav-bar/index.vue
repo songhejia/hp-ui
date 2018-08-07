@@ -96,6 +96,7 @@ import Layout from '../layout'
 import MenuList from '../menu-list'
 import LayoutContainer from '../layout-container'
 import IconButton from '../icon-button'
+import func from './vue-temp/vue-editor-bridge';
 export default create({
   name: 'top-nav-bar',
   components: {
@@ -109,7 +110,9 @@ export default create({
     letterTotal: Number,
     letterInfo: {
       type: Object,
-      default: {}
+      default: function () {
+        return {}
+      }
     }
   },
   methods: {
@@ -143,10 +146,6 @@ export default create({
     }
     > .hp-layout-item-3 {
       text-align: right;
-      .alert-bell {
-        // cursor: pointer;
-        // color: #afb1bc;
-      }
       .badge-letter-total {
         > .el-badge__content {
           margin-top: 10px;
