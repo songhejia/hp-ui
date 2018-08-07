@@ -2,7 +2,7 @@ require('shelljs/global')
 
 echo(pwd())
 var path = pwd()
-if (exec(`git commit -am "[release] Auto-commit" -F ${path}`).code !== 0) {
+if (exec(`git -c diff.mnemonicprefix=false -c core.quotepath=false commit -am "[release] Auto-commit"`).code !== 0) {
   echo('Error: Git commit failed');
   exit(1);
 }
