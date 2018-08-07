@@ -61,8 +61,13 @@
             </el-dropdown>
           </el-badge>
           <icon-button name="gear"
-                       @click="onSetting" />
-          <icon-button name="power-off" />
+                       @click="onSetting"
+                       tool-tip="设置"
+                       effect="light" />
+          <icon-button name="power-off"
+                       @click="onLogOut"
+                       tool-tip="退出"
+                       effect="light" />
           <!-- <zp-icon-button v-if="user.Role2!=4"
                           @click="onSetting"
                           tool-tip="设置"
@@ -104,9 +109,17 @@ export default create({
     }
   },
   methods: {
-    handleCommand() { },
+    handleCommand(command) {
+      console.log('onDropDownCheck', command)
+      this.$emit('onDropDownCheck', command)
+    },
     onSetting() {
       console.log('onSetting')
+      this.$emit('onSetting')
+    },
+    onLogOut() {
+      console.log('onLogOut')
+      this.$emit('onLogOut')
     }
   }
 })

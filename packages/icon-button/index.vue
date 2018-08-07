@@ -1,16 +1,31 @@
 <template>
   <div class="hp-icon-button"
        @click="handleClick">
-    <i class="fa"
-       :class="iconClass"></i>
+    <el-tooltip class="item"
+                effect="dark"
+                :content="toolTip"
+                placement="bottom"
+                :disabled="!toolTip"
+                :effect="effect">
+      <span>
+        <i class="fa"
+           :class="iconClass"></i>
+      </span>
+    </el-tooltip>
   </div>
+
 </template>
 <script>
 import create from '../utils/create'
 export default create({
   name: 'hp-icon-button',
   props: {
-    name: String
+    name: String,
+    toolTip: String,
+    effect: {
+      type: String,
+      default: 'dark'
+    }
   },
   computed: {
     iconClass() {
@@ -25,16 +40,24 @@ export default create({
 })
 </script>
 <style lang="scss">
+$height: 39px;
 .hp-icon-button {
   display: inline-block;
-  width: 39px;
+  width: $height;
   text-align: center;
   margin: 0 5px;
   cursor: pointer;
-  > i {
-    color: #adb2bd;
-    &:hover {
-      color: #fff;
+  span {
+    display: inline-block;
+    height: 39px;
+    width: 100%;
+    i {
+      color: #adb2bd;
+      width: 100%;
+      display: inline-block;
+      &:hover {
+        color: #fff;
+      }
     }
   }
   &:hover {
