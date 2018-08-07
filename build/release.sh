@@ -7,3 +7,7 @@ npm version patch
 npm run build:lib
 
 npm publish
+
+echo 'finish'
+
+fi
