@@ -24,7 +24,11 @@
     </hp-layout>
     <hp-top-nav-bar :menus="menus"
                     :letter-info="letterInfo"
-                    :letterTotal="999"></hp-top-nav-bar>
+                    :letterTotal="999" />
+    <hp-header-bar>
+      <div slot="left">卓聘·顾问执行系统</div>
+      <div slot="right">卓聘·顾问执行系统</div>
+    </hp-header-bar>
   </div>
 </template>
 
@@ -32,6 +36,7 @@
 import hello from "../../packages/hello";
 import layout from "../../packages/layout";
 import TopNavBar from "../../packages/top-nav-bar";
+import HeaderBar from "../../packages/header-bar";
 export default {
   name: "HelloWorld",
   data() {
@@ -60,7 +65,8 @@ export default {
   components: {
     [hello.name]: hello,
     [layout.name]: layout,
-    [TopNavBar.name]: TopNavBar
+    [TopNavBar.name]: TopNavBar,
+    [HeaderBar.name]: HeaderBar
   }
 };
 </script>
