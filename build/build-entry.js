@@ -18,6 +18,7 @@ function buildHPUIEntry() {
 ${importList.join('\n')}
 const version = '${version}';
 import 'font-awesome/css/font-awesome.min.css'
+import './base.scss'
 const components = [
   ${intallList.join(',\n  ')}
 ];

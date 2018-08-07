@@ -78,7 +78,16 @@
       "plugin:vue/essential",
       "@vue/prettier"
     ],
-    "rules": {},
+    "rules": {
+      "vue/attribute-hyphenation": [
+        "error",
+        "always"
+      ],
+      "vue/html-quotes": [
+        "error",
+        "double"
+      ]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
