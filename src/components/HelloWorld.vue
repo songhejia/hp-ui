@@ -22,7 +22,9 @@
         </div>
       </hp-layout>
     </hp-layout>
-    <hp-top-nav-bar :menus="menus"></hp-top-nav-bar>
+    <hp-top-nav-bar :menus="menus"
+                    :letter-info="letterInfo"
+                    :letterTotal="999"></hp-top-nav-bar>
   </div>
 </template>
 
@@ -47,8 +49,13 @@ export default {
           title: "保面试看板",
           path: "board.html"
         }
-      ]
-    };
+      ],
+      letterInfo: {
+        jobStatusCount: 25,
+        newJobCount: 8,
+        jobOutCount: 1
+      }
+    }
   },
   components: {
     [hello.name]: hello,
