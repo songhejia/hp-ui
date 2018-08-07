@@ -10,14 +10,15 @@ function buildHPUIEntry() {
     'Lazyload',
     'Waterfall'
   ];
-
+ 
   const importList = Components.map(name => `import ${uppercamelize(name)} from './${name}';`);
   const exportList = Components.map(name => `${uppercamelize(name)}`);
   const intallList = exportList.filter(name => !~uninstallComponents.indexOf(uppercamelize(name)));
+
+   //import 'font-awesome/css/font-awesome.min.css'
   const content = `${tips}
 ${importList.join('\n')}
 const version = '${version}';
---import 'font-awesome/css/font-awesome.min.css'
 import './base.scss'
 const components = [
   ${intallList.join(',\n  ')}
