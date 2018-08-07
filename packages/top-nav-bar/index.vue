@@ -96,7 +96,6 @@ import Layout from '../layout'
 import MenuList from '../menu-list'
 import LayoutContainer from '../layout-container'
 import IconButton from '../icon-button'
-import func from './vue-temp/vue-editor-bridge';
 export default create({
   name: 'top-nav-bar',
   components: {
