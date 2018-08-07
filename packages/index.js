@@ -7,7 +7,7 @@ import LayoutContainer from './layout-container';
 import LayoutItem from './layout-item';
 import MenuList from './menu-list';
 import TopNavBar from './top-nav-bar';
-const version = '0.1.43';
+const version = '0.1.44';
 import 'font-awesome/css/font-awesome.min.css'
 import './base.scss'
 const components = [
