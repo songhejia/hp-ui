@@ -109,10 +109,11 @@ export default create({
       width: 80px;
     }
     > .hp-layout-item-2 {
-      width: 400px;
+      width: 330px;
     }
   }
   &-menu {
+    font-size: 14px;
     .hp-menu-item {
       &:hover {
         background-color: #191a1f;

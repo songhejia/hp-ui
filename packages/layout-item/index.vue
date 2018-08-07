@@ -1,11 +1,8 @@
 <template>
   <div class="hp-layout-item"
        :class="'hp-layout-item-'+index">
-    <div class="hp-layout-item-container">
-      <slot></slot>
-    </div>
+    <slot></slot>
   </div>
-
 </template>
 <script>
 import create from '../utils/create'
@@ -21,11 +18,11 @@ export default create({
   &-item {
     display: table-row;
     box-sizing: border-box;
-    &-container {
-      margin: 0 auto;
-      width: 100%;
-      height: 100%;
-    }
+    // &-container {
+    //   margin: 0 auto;
+    //   width: 100%;
+    //   height: 100%;
+    // }
   }
   &-horizontal > &-item {
     display: table-cell;
