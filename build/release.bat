@@ -10,7 +10,6 @@ npm publish
 
 echo 'finish'
 
-fi
 
 echo ""
 
