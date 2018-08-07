@@ -2,7 +2,7 @@ git add .
 
 git commit -am "[release] Auto-commit"
 
-npm version patch
+REM npm version patch
 
 npm run build:lib
 
