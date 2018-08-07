@@ -6,7 +6,7 @@
 <script>
 import create from '../utils/create'
 export default create({
-  name: 'hp-layout-container'
+  name: 'layout-container'
 })
 </script>
 

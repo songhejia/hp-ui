@@ -18,7 +18,7 @@
 <script>
 import create from '../utils/create'
 export default create({
-  name: 'hp-icon-button',
+  name: 'icon-button',
   props: {
     name: String,
     toolTip: String,
