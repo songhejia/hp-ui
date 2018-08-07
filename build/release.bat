@@ -8,9 +8,6 @@ npm run build:lib
 
 npm publish
 
-echo 'finish'
+echo finish
 
-
-echo ""
-
-read -n 1 -p "Press any key to continue..."
+PAUSE
