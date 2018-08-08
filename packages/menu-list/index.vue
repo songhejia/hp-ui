@@ -32,6 +32,7 @@ export default create({
 <style lang="scss">
 .hp-menu {
   &-item {
+    text-align: center;
     &-link {
       display: inline-block;
       width: 100%;
