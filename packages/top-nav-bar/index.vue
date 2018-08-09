@@ -64,7 +64,8 @@
           <icon-button name="gear"
                        @click="onSetting"
                        tool-tip="设置"
-                       effect="light" />
+                       effect="light"
+                       v-if="!settingHidden" />
           <icon-button name="power-off"
                        @click="onLogOut"
                        tool-tip="退出"
@@ -97,6 +98,10 @@ export default create({
       default: function () {
         return {}
       }
+    },
+    settingHidden: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
