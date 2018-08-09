@@ -1,13 +1,16 @@
 <template>
   <div class="hp-header-bar">
     <layout-container>
-      <layout :count="2"
+      <layout :count="3"
               horizontal>
         <div slot="item-1"
              class="hp-header-bar-left">
           <slot name="left"></slot>
         </div>
-        <div slot="item-2"
+        <div slot="item-2">
+
+        </div>
+        <div slot="item-3"
              class="hp-header-bar-right">
           <slot name="right"></slot>
         </div>
@@ -29,6 +32,7 @@ export default create({
 </script>
 <style lang="scss">
 $height: 87px;
+$content_height: 71px;
 .hp-header-bar {
   background-color: #ffffff;
   height: $height;
@@ -36,16 +40,21 @@ $height: 87px;
     height: $height;
   }
   .hp-layout {
-    &-item-1 {
+    &-item-1,
+    &-item-3 {
       width: 240px;
     }
   }
   &-left {
-    padding: 25px 0;
+    height: $content_height;
+    line-height: $content_height;
     border-right: 1px solid #cccccc;
   }
   &-right {
     text-align: right;
+    border-left: 1px solid #cccccc;
+    height: $content_height;
+    line-height: $content_height;
   }
 }
 </style>
