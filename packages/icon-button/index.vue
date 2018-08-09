@@ -2,7 +2,6 @@
   <div class="hp-icon-button"
        @click="handleClick">
     <el-tooltip class="item"
-                effect="dark"
                 :content="toolTip"
                 placement="bottom"
                 :disabled="!toolTip"

@@ -6,11 +6,8 @@
       <layout :count="3"
               horizontal
               class="top-nav-bar-container">
-
         <div slot="item-1"
              class="top-nav-bar-brand">
-          <!-- <zp-icon-button name="bars"
-                      dark/> -->
           <i class="fa fa-reorder top-nav-bar-brand-icon"></i>
           <span>卓聘</span>
         </div>
@@ -72,19 +69,7 @@
                        @click="onLogOut"
                        tool-tip="退出"
                        effect="light" />
-          <!-- <zp-icon-button v-if="user.Role2!=4"
-                          @click="onSetting"
-                          tool-tip="设置"
-                          name="gear"
-                          hover='square'
-                          dark/>
-          <zp-icon-button @click="onLogOut"
-                          tool-tip="退出"
-                          name="power-off"
-                          hover='square'
-                          dark/> -->
         </div>
-
       </layout>
     </layout-container>
   </layout>
