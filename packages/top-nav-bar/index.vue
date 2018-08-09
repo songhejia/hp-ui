@@ -65,7 +65,7 @@
                        @click="onSetting"
                        tool-tip="设置"
                        effect="light"
-                       v-if="!settingHidden" />
+                       v-if="settingShow" />
           <icon-button name="power-off"
                        @click="onLogOut"
                        tool-tip="退出"
@@ -99,7 +99,7 @@ export default create({
         return {}
       }
     },
-    settingHidden: {
+    settingShow: {
       type: Boolean,
       default: false
     }
