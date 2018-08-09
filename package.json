@@ -1,6 +1,6 @@
 {
   "name": "hp-ui",
-  "version": "0.1.54",
+  "version": "0.1.55",
   "private": false,
   "main": "lib/hp-ui.min.js",
   "module": "es/index.js",
