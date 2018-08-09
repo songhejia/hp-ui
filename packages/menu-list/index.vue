@@ -41,6 +41,7 @@ export default create({
       text-decoration: none;
       &:hover {
         color: #ffd329;
+        text-decoration: none;
       }
     }
   }
