@@ -29,9 +29,10 @@
       <div slot="left">卓聘·顾问执行系统</div>
       <div slot="right">卓聘·顾问执行系统</div>
     </hp-header-bar>
-    <hp-icon-button name="power-off"
+    <!-- <hp-icon-button name="power-off"
                     tool-tip="退出"
-                    effect="light" />
+                    effect="light" /> -->
+    <hp-job-type-dialog></hp-job-type-dialog>
   </div>
 </template>
 
@@ -41,6 +42,7 @@ import layout from "../../packages/layout";
 import TopNavBar from "../../packages/top-nav-bar";
 import HeaderBar from "../../packages/header-bar";
 import IconButton from '../../packages/icon-button'
+import JobTypeDialog from '../../packages/job-type-dialog'
 export default {
   name: "HelloWorld",
   data() {
@@ -71,7 +73,8 @@ export default {
     [layout.name]: layout,
     [TopNavBar.name]: TopNavBar,
     [HeaderBar.name]: HeaderBar,
-    [IconButton.name]: IconButton
+    [IconButton.name]: IconButton,
+    [JobTypeDialog.name]: JobTypeDialog
   }
 };
 </script>
