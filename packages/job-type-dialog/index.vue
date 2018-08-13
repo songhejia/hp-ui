@@ -174,19 +174,21 @@ export default create({
       this.checkList.splice(0, this.checkList.length)
     },
     confirmCheckListClick() {
+      this.confirmList = deepClone(this.checkObjList)
       this.$emit('input', this.checkList.join(';'))
       this.$emit('confirmClick', this.confirmList)
-      this.confirmList = deepClone(this.checkObjList)
-
       this.dialogVisible = false
     },
     validateLimit() {
-      if (this.checkList.length >= this.limit) {
-        this.$message({
-          message: `最多只能选择${this.limit}条`,
-          type: 'warning'
-        });
-      }
+      const cnt = this.checkList.length
+      this.$nextTick(_ => {
+        if (this.checkList.length >= this.limit && cnt === this.checkList.length) {
+          this.$message({
+            message: `最多只能选择${this.limit}条`,
+            type: 'warning'
+          });
+        }
+      })
     }
   },
   mounted() {
