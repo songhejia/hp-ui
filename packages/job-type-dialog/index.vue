@@ -41,12 +41,11 @@
       <span slot="footer"
             class="dialog-footer">
         <div>
-          <!-- <el-tag v-for="tag in checkedList"
-                  :key="tag.name"
-                  closable
-                  :type="tag.type">
-            {{tag.name}}
-          </el-tag> -->
+          <el-tag v-for="tag in checkedList"
+                  :key="tag"
+                  closable>
+            {{tag}}
+          </el-tag>
 
         </div>
         <div>
@@ -116,7 +115,7 @@ export default create({
     .item {
       display: inline-block;
       padding: 5px 5px;
-      margin: 5px 0;
+      margin: 2px 0;
       width: 185px;
       box-sizing: border-box;
       .sub-item-toggle {
