@@ -32,7 +32,11 @@
     <!-- <hp-icon-button name="power-off"
                     tool-tip="退出"
                     effect="light" /> -->
-    <hp-job-type-dialog></hp-job-type-dialog>
+    <br/>
+    <hp-job-type-dialog v-model="jobType"
+                        @confirmClick="confirmClick"
+                        label="职位类别"
+                        :limit="3"></hp-job-type-dialog>
   </div>
 </template>
 
@@ -65,7 +69,8 @@ export default {
         jobStatusCount: 25,
         newJobCount: 8,
         jobOutCount: 1
-      }
+      },
+      jobType: "4010200;7004000"
     }
   },
   components: {
@@ -75,6 +80,11 @@ export default {
     [HeaderBar.name]: HeaderBar,
     [IconButton.name]: IconButton,
     [JobTypeDialog.name]: JobTypeDialog
+  },
+  methods: {
+    confirmClick() {
+      console.log('confirmClick', this.jobType)
+    }
   }
 };
 </script>
