@@ -15,7 +15,8 @@
                            :max="limit">
           <template v-for="(group,index) in groups">
             <div class="hp-item"
-                 :class="{'hp-item-active':group.strKey===activeStrKey}">
+                 :class="{'hp-item-active':group.strKey===activeStrKey}"
+                 @click="validateLimit">
               <checkbox-item :label="group.strKey"
                              :text="group.value"
                              :has-sub-item="true"
@@ -32,7 +33,8 @@
                 </div>
                 <div class="hp-item"
                      v-if="groups[index-seq+1]&&groups[index-seq+1].children"
-                     v-for="child in groups[index-seq+1].children">
+                     v-for="child in groups[index-seq+1].children"
+                     @click="validateLimit">
                   <checkbox-item :label="child.strKey"
                                  :text="child.value"
                                  :has-sub-item="false"
@@ -105,12 +107,6 @@ export default create({
     confirmStr() {
       if (!this.confirmList) return ""
       return this.confirmList.map(item => item.value).join(';')
-    },
-    valueAry() {
-      if (this.value) {
-        return [...this.value.split(';')]
-      }
-      return []
     }
   },
   methods: {
@@ -129,7 +125,6 @@ export default create({
     subItemToggle(param) {
       this.activeStrKey = param.label === this.activeStrKey ? "-1" : param.label
       /* eslint-disable no-alert, no-console */
-      // console.log(this.activeStrKey)
     },
     convertData2Groups() {//异步加载数据
       return new Promise((resolve, reject) => {
@@ -161,7 +156,6 @@ export default create({
             if (item.children && item.children.length > 0) {
               findGroup(item.children, key)
             }
-            console.log('item', item.strKey, key, item.strKey === key)
             if (item && item.strKey === key && !isFind) {
               result = item
               isFind = true
@@ -185,6 +179,14 @@ export default create({
       this.confirmList = deepClone(this.checkObjList)
 
       this.dialogVisible = false
+    },
+    validateLimit() {
+      if (this.checkList.length >= this.limit) {
+        this.$message({
+          message: `最多只能选择${this.limit}条`,
+          type: 'warning'
+        });
+      }
     }
   },
   mounted() {
