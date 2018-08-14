@@ -70,7 +70,7 @@ export default {
         newJobCount: 8,
         jobOutCount: 1
       },
-      jobType: "4010200;7004000"
+      jobType: ['4010200', '7004000']
     }
   },
   components: {

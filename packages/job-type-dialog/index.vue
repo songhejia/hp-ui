@@ -98,7 +98,7 @@ export default create({
     CheckboxItem
   },
   props: {
-    value: String,
+    value: Array,
     label: String,
     limit: {
       type: Number,
@@ -122,8 +122,8 @@ export default create({
         this.groups = result
       }).then(_ => {
         if (this.value) {
-          this.checkList = [...this.value.split(';')]
-          console.log(this.checkList)
+          this.checkList = [...this.value]
+          // console.log(this.checkList)
           this.confirmList = deepClone(this.checkObjList)
         }
       })
