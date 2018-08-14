@@ -39,6 +39,11 @@ export default create({
 </script>
 <style lang="scss">
 .hp-checkbox-item {
+  display: inline-block;
+  padding: 5px 5px;
+  margin: 2px 0;
+  width: 185px;
+  box-sizing: border-box;
   &-1 {
     width: 155px;
     overflow: hidden;

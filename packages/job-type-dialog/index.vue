@@ -12,12 +12,14 @@
                width="650px">
       <div class="hp-dialog-container">
         <el-checkbox-group v-model="checkList"
-                           :max="limit">
+                           :max="limit"
+                           @change="handleChange">
           <template v-for="(group,index) in groups">
             <div class="hp-item"
                  :class="{'hp-item-active':group.strKey===activeStrKey}"
                  @click="validateLimit">
-              <checkbox-item :label="group.strKey"
+              <checkbox-item v-if="group.children&&group.children.length"
+                             :label="group.strKey"
                              :text="group.value"
                              :has-sub-item="true"
                              :caret-top="group.strKey===activeStrKey"
@@ -26,7 +28,7 @@
             <template v-if="(index+1)%3===0||(index+1)===groups.length">
               <div class="hp-sub-item-group"
                    v-for="seq in 3"
-                   :class="{['hp-sub-item-group-'+groups[index-seq+1].strKey]:true,'is-expand':groups[index-seq+1].strKey===activeStrKey}">
+                   :class="{'is-expand':groups[index-seq+1].strKey===activeStrKey}">
                 <div class="arrow-up"
                      :style="{'left':seq==3?'7%':seq==2?'40%':'73%'}">
                   <i class="el-icon-caret-top"></i>
@@ -189,6 +191,10 @@ export default create({
           });
         }
       })
+    },
+    handleChange() {
+      //判断选中的值是否有父子关系，如果有则取消子
+      // const repeatList = this.checkList.map(item => this.groups.map(group => group.children))
     }
   },
   mounted() {
@@ -223,10 +229,6 @@ export default create({
     border-bottom: 1px solid #ccc;
     .hp-item {
       display: inline-block;
-      padding: 5px 5px;
-      margin: 2px 0;
-      width: 185px;
-      box-sizing: border-box;
       .hp-sub-item-toggle {
         display: none;
       }
