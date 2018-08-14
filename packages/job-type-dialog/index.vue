@@ -14,7 +14,7 @@
       </el-input>
     </div>
 
-    <el-dialog title="职位类型"
+    <el-dialog :title="label"
                :visible.sync="dialogVisible"
                width="650px">
       <div class="hp-dialog-container">
@@ -23,16 +23,17 @@
                            @change="handleChange">
           <template v-for="(group,index) in groups">
             <div class="hp-item"
-                 @click="validateLimit">
+                 @click="validateLimit"
+                 :style="{'width':checkboxItemWidth}">
               <checkbox-item :label="group.strKey"
                              :text="group.value"
                              :is-expand="group.strKey===activeStrKey"
                              :has-sub-item="(!!group.children&&!!group.children.length)"
                              @subItemToggle="subItemToggle"></checkbox-item>
             </div>
-            <template v-if="(index+1)%3===0||(index+1)===groups.length">
+            <template v-if="(index+1)%column===0||(index+1)===groups.length">
               <div class="hp-sub-item-group"
-                   v-for="seq in 3"
+                   v-for="seq in column"
                    :class="{'is-expand':groups[index-seq+1].strKey===activeStrKey}">
                 <div class="arrow-up"
                      :style="{'left':seq==3?'7%':seq==2?'40%':'73%'}">
@@ -41,7 +42,8 @@
                 <div class="hp-item"
                      v-if="groups[index-seq+1]&&groups[index-seq+1].children"
                      v-for="child in groups[index-seq+1].children"
-                     @click="validateLimit">
+                     @click="validateLimit"
+                     :style="{'width':checkboxItemWidth}">
                   <checkbox-item :label="child.strKey"
                                  :text="child.value"
                                  :has-sub-item="false"
@@ -116,6 +118,10 @@ export default create({
     limit: {
       type: Number,
       default: 3
+    },
+    column: {
+      type: Number,
+      default: 3
     }
   },
   computed: {
@@ -126,6 +132,9 @@ export default create({
     confirmStr() {
       if (!this.confirmList) return ""
       return this.confirmList.map(item => item.value).join(';')
+    },
+    checkboxItemWidth() {
+      return `${100 / this.column}%`
     }
   },
   methods: {
@@ -245,6 +254,7 @@ export default create({
   }
   .hp-dialog-container {
     overflow-y: scroll;
+    overflow-x: hidden;
     max-height: 500px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;

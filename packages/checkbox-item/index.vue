@@ -1,10 +1,12 @@
 <template>
   <div class="hp-checkbox-item"
-       :class="isExpand?'hp-checkbox-item-active':''">
-    <el-checkbox :label="label"
-                 :disabled="disabled"
-                 class="hp-checkbox-item-1">{{text}}</el-checkbox>
-    <span class="hp-sub-item-toggle"
+       :class="isExpand?'hp-checkbox-item-active':''"
+       :style="{'width':checkboxItemWidth}">
+    <span class="hp-checkbox-item-1">
+      <el-checkbox :label="label"
+                   :disabled="disabled">{{text}}</el-checkbox>
+    </span>
+    <span class="hp-sub-item-toggle hp-checkbox-item-2"
           @click="subItemToggle">
       <i v-if="hasSubItem&&!disabled"
          class="el-icon-caret-top"
@@ -30,6 +32,10 @@ export default create({
     disabled: {
       type: Boolean,
       default: false
+    },
+    checkboxItemWidth: {
+      type: String,
+      default: '100%'
     }
   },
   methods: {
@@ -45,15 +51,10 @@ export default create({
   display: inline-block;
   padding: 5px;
   margin: 2px;
-  width: 185px;
   box-sizing: border-box;
+  white-space: nowrap;
+  position: relative;
   .hp-sub-item-toggle {
-    font-size: 14px;
-    width: 20px;
-    height: 19px;
-    text-align: center;
-    cursor: pointer;
-    vertical-align: middle;
     display: none;
   }
   &-active,
@@ -64,9 +65,21 @@ export default create({
     }
   }
   &-1 {
-    width: 155px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: inline-block;
+    width: 80%;
+    .el-checkbox {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
+  }
+  &-2 {
+    width: 20%;
+    font-size: 14px;
+    height: 19px;
+    text-align: center;
+    cursor: pointer;
     vertical-align: middle;
   }
   &:hover {
