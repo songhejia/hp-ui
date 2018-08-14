@@ -1,12 +1,14 @@
 <template>
-  <div class="hp-checkbox-item">
+  <div class="hp-checkbox-item"
+       :class="isExpand?'hp-checkbox-item-active':''">
     <el-checkbox :label="label"
                  :disabled="disabled"
                  class="hp-checkbox-item-1">{{text}}</el-checkbox>
     <span class="hp-sub-item-toggle"
           @click="subItemToggle">
       <i v-if="hasSubItem&&!disabled"
-         :class="caretTop?'el-icon-caret-top':'el-icon-caret-bottom'"></i>
+         class="el-icon-caret-top"
+         :class="isExpand?'is-reverse':''"></i>
     </span>
   </div>
 </template>
@@ -21,9 +23,9 @@ export default create({
       type: Boolean,
       default: false
     },
-    caretTop: {
+    isExpand: {
       type: Boolean,
-      default: true
+      default: false
     },
     disabled: {
       type: Boolean,
@@ -32,6 +34,7 @@ export default create({
   },
   methods: {
     subItemToggle() {
+      // !this.disabled && (this.isExpand = !this.isExpand)
       this.$emit('subItemToggle', { label: this.label, text: this.text })
     }
   }
@@ -40,29 +43,39 @@ export default create({
 <style lang="scss">
 .hp-checkbox-item {
   display: inline-block;
-  padding: 5px 5px;
-  margin: 2px 0;
+  padding: 5px;
+  margin: 2px;
   width: 185px;
   box-sizing: border-box;
+  .hp-sub-item-toggle {
+    font-size: 14px;
+    width: 20px;
+    height: 19px;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+    display: none;
+  }
+  &-active,
+  &:hover {
+    background-color: #f5f6fa;
+    .hp-sub-item-toggle {
+      display: inline-block;
+    }
+  }
   &-1 {
     width: 155px;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
   }
-  .hp-sub-item-toggle {
-    font-size: 14px;
-    width: 20px;
-    height: 19px;
-
-    text-align: center;
-    cursor: pointer;
-    vertical-align: middle;
-  }
   &:hover {
     .el-checkbox__inner {
       border: 1px solid #429eff;
     }
+  }
+  .is-reverse {
+    transform: rotate(180deg);
   }
 }
 </style>

@@ -4,7 +4,14 @@
       <label>{{label}}</label>
       <el-input @focus="dialogVisible = true"
                 v-model="confirmStr"
-                size="small"></el-input>
+                size="small"
+                placeholder="请选择"
+                :readonly="true">
+        <i slot="suffix"
+           class="el-icon-arrow-down el-input__icon"
+           :class="dialogVisible?'is-reverse':''"
+           @click="dialogVisible = true"></i>
+      </el-input>
     </div>
 
     <el-dialog title="职位类型"
@@ -16,13 +23,11 @@
                            @change="handleChange">
           <template v-for="(group,index) in groups">
             <div class="hp-item"
-                 :class="{'hp-item-active':group.strKey===activeStrKey}"
                  @click="validateLimit">
-              <checkbox-item v-if="group.children&&group.children.length"
-                             :label="group.strKey"
+              <checkbox-item :label="group.strKey"
                              :text="group.value"
-                             :has-sub-item="true"
-                             :caret-top="group.strKey===activeStrKey"
+                             :is-expand="group.strKey===activeStrKey"
+                             :has-sub-item="(!!group.children&&!!group.children.length)"
                              @subItemToggle="subItemToggle"></checkbox-item>
             </div>
             <template v-if="(index+1)%3===0||(index+1)===groups.length">
@@ -40,7 +45,6 @@
                   <checkbox-item :label="child.strKey"
                                  :text="child.value"
                                  :has-sub-item="false"
-                                 :caret-top="false"
                                  :disabled="checkList.indexOf(groups[index-seq+1].strKey)>=0"></checkbox-item>
                 </div>
               </div>
@@ -217,6 +221,10 @@ export default create({
     }
     > .el-input {
       width: 415px;
+      cursor: pointer;
+      .el-input__inner {
+        cursor: pointer;
+      }
     }
   }
   .el-dialog__body {
@@ -229,16 +237,6 @@ export default create({
     border-bottom: 1px solid #ccc;
     .hp-item {
       display: inline-block;
-      .hp-sub-item-toggle {
-        display: none;
-      }
-      &:hover,
-      &-active {
-        background-color: #f5f6fa;
-        .hp-sub-item-toggle {
-          display: inline-block;
-        }
-      }
     }
     .hp-sub-item-group {
       background-color: #eef1f6;
@@ -247,12 +245,6 @@ export default create({
       border: 1px solid #d8dce6;
       box-sizing: border-box;
       position: relative;
-      .hp-item {
-        &:hover,
-        &-active {
-          background-color: #fff;
-        }
-      }
       .arrow-up {
         position: absolute;
         top: -15px;
@@ -270,6 +262,9 @@ export default create({
     > .el-tag {
       margin: 2px 3px;
     }
+  }
+  .is-reverse {
+    transform: rotate(180deg);
   }
 }
 </style>
