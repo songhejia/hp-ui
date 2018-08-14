@@ -81,7 +81,20 @@ import json from '../../local/job.type.json'
 import create from '../utils/create'
 import CheckboxItem from '../checkbox-item'
 import deepClone from '../utils/deep-clone.js'
-import { returnStatement, isFile } from 'babel-types';
+(function () {
+  json.data.forEach(item => {
+    delete item["aliasEnglishValue"]
+    delete item["aliasPinYinValue"]
+    delete item["deleted"]
+    delete item["desc"]
+    delete item["itemAliasValue1"]
+    delete item["itemAliasValue2"]
+    delete item["parentIntKey"]
+    delete item["intKey"]
+    delete item["id"]
+  })
+  // console.log(json.data)
+})()
 export default create({
   name: 'job-type-dialog',
   data() {
@@ -181,7 +194,7 @@ export default create({
     },
     confirmCheckListClick() {
       this.confirmList = deepClone(this.checkObjList)
-      this.$emit('input', this.checkList.join(';'))
+      this.$emit('input', this.checkList)
       this.$emit('confirmClick', this.confirmList)
       this.dialogVisible = false
     },
