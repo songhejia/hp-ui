@@ -195,7 +195,7 @@ export default create({
       return result || {}
     },
     handleCloseTag(tag) {
-      this.checkList.splice(this.checkList.indexOf(tag), 1)
+      this.checkList.splice(this.checkList.indexOf(tag.strKey), 1)
     },
     clearCheckList() {
       this.checkList.splice(0, this.checkList.length)
