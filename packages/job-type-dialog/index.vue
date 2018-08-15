@@ -36,7 +36,7 @@
                    v-for="seq in column"
                    :class="{'is-expand':groups[index-seq+1].strKey===activeStrKey}">
                 <div class="arrow-up"
-                     :style="{'left':seq==3?'7%':seq==2?'40%':'73%'}">
+                     :style="{'left':arrowUpLeft(seq)}">
                   <i class="el-icon-caret-top"></i>
                 </div>
                 <div class="hp-item"
@@ -95,7 +95,6 @@ import deepClone from '../utils/deep-clone.js'
     delete item["intKey"]
     delete item["id"]
   })
-  // console.log(json.data)
 })()
 export default create({
   name: 'job-type-dialog',
@@ -221,6 +220,9 @@ export default create({
     handleChange() {
       //判断选中的值是否有父子关系，如果有则取消子
       // const repeatList = this.checkList.map(item => this.groups.map(group => group.children))
+    },
+    arrowUpLeft(seq) {
+      return `${100 / 2 / this.column * (seq * 2 - 1)}%`
     }
   },
   mounted() {
