@@ -38,6 +38,11 @@
                         label=""
                         title="职位类别"
                         :limit="3"></hp-job-type-dialog>
+    <hp-city-dialog v-model="citys"
+                    @confirmClick="confirmCityClick"
+                    label=""
+                    title="城市"
+                    :limit="6"></hp-city-dialog>
   </div>
 </template>
 
@@ -48,6 +53,7 @@ import TopNavBar from "../../packages/top-nav-bar";
 import HeaderBar from "../../packages/header-bar";
 import IconButton from '../../packages/icon-button'
 import JobTypeDialog from '../../packages/job-type-dialog'
+import CityDialog from '../../packages/city-dialog'
 export default {
   name: "HelloWorld",
   data() {
@@ -71,7 +77,8 @@ export default {
         newJobCount: 8,
         jobOutCount: 1
       },
-      jobType: ['4010200', '7004000']
+      jobType: ['4010200', '7004000'],
+      citys: []
     }
   },
   components: {
@@ -80,12 +87,16 @@ export default {
     [TopNavBar.name]: TopNavBar,
     [HeaderBar.name]: HeaderBar,
     [IconButton.name]: IconButton,
-    [JobTypeDialog.name]: JobTypeDialog
+    [JobTypeDialog.name]: JobTypeDialog,
+    [CityDialog.name]: CityDialog
   },
   methods: {
     confirmClick() {
       console.log('confirmClick', this.jobType)
+    },
+    confirmCityClick() {
+      console.log('confirmClick', this.citys)
     }
   }
-};
+}
 </script>

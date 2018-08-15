@@ -15,7 +15,7 @@
         </div>
         <template v-if="(index+1)%column===0||(index+1)===data.length">
           <div class="hp-sub-item-group"
-               v-for="seq in column"
+               v-for="seq in index%column+1"
                :class="{'is-expand':data[index-seq+1].strKey===activeStrKey}">
             <div class="arrow-up"
                  :style="{'left':arrowUpLeft(seq)}">
