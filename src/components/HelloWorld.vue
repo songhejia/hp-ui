@@ -35,7 +35,8 @@
     <br/>
     <hp-job-type-dialog v-model="jobType"
                         @confirmClick="confirmClick"
-                        label="职位类别"
+                        label=""
+                        title="职位类别"
                         :limit="3"></hp-job-type-dialog>
   </div>
 </template>

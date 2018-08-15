@@ -1,7 +1,7 @@
 <template>
   <div class="hp-job-type-dialog">
     <div class="hp-job-type-dialog-form">
-      <label>{{label}}</label>
+      <label v-if="!!label">{{label}}</label>
       <el-input @focus="dialogVisible = true"
                 v-model="confirmStr"
                 size="small"
@@ -13,7 +13,7 @@
            @click="dialogVisible = true"></i>
       </el-input>
     </div>
-    <el-dialog :title="label"
+    <el-dialog :title="title||label"
                :visible.sync="dialogVisible"
                width="650px">
       <div class="hp-dialog-container">
@@ -80,6 +80,7 @@ export default create({
   props: {
     value: Array,
     label: String,
+    title: String,
     limit: {
       type: Number,
       default: 3
