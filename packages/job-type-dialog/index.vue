@@ -13,46 +13,12 @@
            @click="dialogVisible = true"></i>
       </el-input>
     </div>
-
     <el-dialog :title="label"
                :visible.sync="dialogVisible"
                width="650px">
       <div class="hp-dialog-container">
-        <el-checkbox-group v-model="checkList"
-                           :max="limit"
-                           @change="handleChange">
-          <template v-for="(group,index) in groups">
-            <div class="hp-item"
-                 @click="validateLimit"
-                 :style="{'width':checkboxItemWidth}">
-              <checkbox-item :label="group.strKey"
-                             :text="group.value"
-                             :is-expand="group.strKey===activeStrKey"
-                             :has-sub-item="(!!group.children&&!!group.children.length)"
-                             @subItemToggle="subItemToggle"></checkbox-item>
-            </div>
-            <template v-if="(index+1)%column===0||(index+1)===groups.length">
-              <div class="hp-sub-item-group"
-                   v-for="seq in column"
-                   :class="{'is-expand':groups[index-seq+1].strKey===activeStrKey}">
-                <div class="arrow-up"
-                     :style="{'left':arrowUpLeft(seq)}">
-                  <i class="el-icon-caret-top"></i>
-                </div>
-                <div class="hp-item"
-                     v-if="groups[index-seq+1]&&groups[index-seq+1].children"
-                     v-for="child in groups[index-seq+1].children"
-                     @click="validateLimit"
-                     :style="{'width':checkboxItemWidth}">
-                  <checkbox-item :label="child.strKey"
-                                 :text="child.value"
-                                 :has-sub-item="false"
-                                 :disabled="checkList.indexOf(groups[index-seq+1].strKey)>=0"></checkbox-item>
-                </div>
-              </div>
-            </template>
-          </template>
-        </el-checkbox-group>
+        <checkbox-item-group v-model="checkList"
+                             :data="groups"></checkbox-item-group>
       </div>
       <span slot="footer"
             class="dialog-footer">
@@ -81,7 +47,7 @@
 <script>
 import json from '../../local/job.type.json'
 import create from '../utils/create'
-import CheckboxItem from '../checkbox-item'
+import CheckboxItemGroup from '../checkbox-item-group'
 import deepClone from '../utils/deep-clone.js'
 (function () {
   json.data.forEach(item => {
@@ -109,7 +75,7 @@ export default create({
     }
   },
   components: {
-    CheckboxItem
+    CheckboxItemGroup
   },
   props: {
     value: Array,
@@ -131,9 +97,6 @@ export default create({
     confirmStr() {
       if (!this.confirmList) return ""
       return this.confirmList.map(item => item.value).join(';')
-    },
-    checkboxItemWidth() {
-      return `${100 / this.column}%`
     }
   },
   methods: {
@@ -148,10 +111,6 @@ export default create({
           this.confirmList = deepClone(this.checkObjList)
         }
       })
-    },
-    subItemToggle(param) {
-      this.activeStrKey = param.label === this.activeStrKey ? "-1" : param.label
-      /* eslint-disable no-alert, no-console */
     },
     convertData2Groups() {//异步加载数据
       return new Promise((resolve, reject) => {
@@ -206,23 +165,9 @@ export default create({
       this.$emit('confirmClick', this.confirmList)
       this.dialogVisible = false
     },
-    validateLimit() {
-      const cnt = this.checkList.length
-      this.$nextTick(_ => {
-        if (this.checkList.length >= this.limit && cnt === this.checkList.length) {
-          this.$message({
-            message: `最多只能选择${this.limit}条`,
-            type: 'warning'
-          });
-        }
-      })
-    },
     handleChange() {
       //判断选中的值是否有父子关系，如果有则取消子
       // const repeatList = this.checkList.map(item => this.groups.map(group => group.children))
-    },
-    arrowUpLeft(seq) {
-      return `${100 / 2 / this.column * (seq * 2 - 1)}%`
     }
   },
   mounted() {
@@ -260,27 +205,6 @@ export default create({
     max-height: 500px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    .hp-item {
-      display: inline-block;
-    }
-    .hp-sub-item-group {
-      background-color: #eef1f6;
-      margin: 5px 0;
-      display: none;
-      border: 1px solid #d8dce6;
-      box-sizing: border-box;
-      position: relative;
-      .arrow-up {
-        position: absolute;
-        top: -15px;
-        font-size: 20px;
-        color: #eef1f6;
-        left: 7%;
-      }
-    }
-    .is-expand {
-      display: block;
-    }
   }
   .checked-tag {
     text-align: left;
