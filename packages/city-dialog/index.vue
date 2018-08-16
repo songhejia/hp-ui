@@ -20,9 +20,59 @@
         <el-checkbox-group v-model="checkList"
                            :max="limit"
                            @change="handleChange">
-          <div class="title-label">热门城市</div>
-          <template v-for="(group,index) in hotCityGroups">
-            <div class="hp-item"
+          <!-- <div class="title-label">热门城市</div> -->
+          <template v-for="(group,groupIndex) in groups">
+            <div class="title-label"
+                 v-if="group.label">
+              <label v-text="group.label"></label>
+            </div>
+            <template v-if="group.hasChildren"
+                      v-for="(option,optionIndex) in group.option">
+              <div class="hp-item"
+                   :class="'hp-item-'+groupIndex+'-'+optionIndex"
+                   :style="{'width':checkboxItemWidth}">
+                <checkbox-item :label="option.value"
+                               :text="option.label"
+                               :checked="option.checked"
+                               :is-expand="false"
+                               :has-sub-item="option.hasChildren"
+                               @toggle="optionToggle(option,'hp-item-'+groupIndex+'-'+optionIndex)"></checkbox-item>
+
+              </div>
+              <div :class="['hp-item-group','hp-item-group-'+option.value,option.toggle?'is-expand':'']">
+                <template v-if="option.hasChildren"
+                          v-for="(children,childrenIndex) in option.option">
+                  <div class="hp-item"
+                       :class="['hp-item-'+groupIndex+'-'+optionIndex+'-'+childrenIndex]"
+                       :style="{'width':checkboxItemWidth}">
+                    <checkbox-item :label="children.value"
+                                   :text="children.label"
+                                   :checked="children.checked"
+                                   :is-expand="false"
+                                   :has-sub-item="children.hasChildren"
+                                   @toggle="childrenToggle(children,'hp-item-'+groupIndex+'-'+optionIndex+'-'+childrenIndex)"></checkbox-item>
+                  </div>
+                  <div :class="['hp-item-group','hp-item-group-'+children.value,children.toggle?'is-expand':'']">
+                    <template v-if="children.hasChildren"
+                              v-for="(grandson,grandsonIndex) in children.option">
+
+                      <div class="hp-item"
+                           :class="['hp-item-'+groupIndex+'-'+optionIndex+'-'+childrenIndex+'-'+grandsonIndex]"
+                           :style="{'width':checkboxItemWidth}">
+                        <checkbox-item :label="grandson.value"
+                                       :text="grandson.label"
+                                       :checked="grandson.checked"
+                                       :is-expand="false"
+                                       :has-sub-item="grandson.hasChildren"
+                                       @toggle="grandsonToggle(grandson,'hp-item-'+groupIndex+'-'+optionIndex+'-'+childrenIndex+'-'+grandsonIndex)"></checkbox-item>
+                      </div>
+
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <!-- <div class="hp-item"
                  @click="validateLimit"
                  :style="{'width':checkboxItemWidth}">
               <checkbox-item :label="group.strKey"
@@ -30,59 +80,7 @@
                              :is-expand="group.strKey===activeStrKey"
                              :has-sub-item="(!!group.children&&!!group.children.length)"
                              @subItemToggle="subItemToggle"></checkbox-item>
-            </div>
-            <template v-if="(index+1)%column===0||(index+1)===hotCityGroups.length">
-              <div class="hp-sub-item-group"
-                   v-for="seq in index%column+1"
-                   :class="{'is-expand':hotCityGroups[index-seq+1].strKey===activeStrKey}">
-                <div class="arrow-up"
-                     :style="{'left':arrowUpLeft(seq)}">
-                  <i class="el-icon-caret-top"></i>
-                </div>
-                <div class="hp-item"
-                     v-if="hotCityGroups[index-seq+1]&&hotCityGroups[index-seq+1].children"
-                     v-for="child in hotCityGroups[index-seq+1].children"
-                     @click="validateLimit"
-                     :style="{'width':checkboxItemWidth}">
-                  <checkbox-item :label="child.strKey"
-                                 :text="child.value"
-                                 :has-sub-item="false"
-                                 :disabled="checkList.indexOf(hotCityGroups[index-seq+1].strKey)>=0"></checkbox-item>
-                </div>
-              </div>
-            </template>
-          </template>
-          <div class="title-label">省市</div>
-          <template v-for="(group,index) in provinceGroups">
-            <div class="hp-item"
-                 @click="validateLimit"
-                 :style="{'width':checkboxItemWidth}">
-              <checkbox-item :label="group.strKey"
-                             :text="group.value"
-                             :is-expand="group.strKey===activeStrKey"
-                             :has-sub-item="(!!group.children&&!!group.children.length)"
-                             @subItemToggle="subItemToggle"></checkbox-item>
-            </div>
-            <template v-if="(index+1)%column===0||(index+1)===provinceGroups.length">
-              <div class="hp-sub-item-group"
-                   v-for="seq in column"
-                   :class="{'is-expand':provinceGroups[index-seq+1].strKey===activeStrKey}">
-                <div class="arrow-up"
-                     :style="{'left':arrowUpLeft(seq)}">
-                  <i class="el-icon-caret-top"></i>
-                </div>
-                <div class="hp-item"
-                     v-if="provinceGroups[index-seq+1]&&provinceGroups[index-seq+1].children"
-                     v-for="child in provinceGroups[index-seq+1].children"
-                     @click="validateLimit"
-                     :style="{'width':checkboxItemWidth}">
-                  <checkbox-item :label="child.strKey"
-                                 :text="child.value"
-                                 :has-sub-item="false"
-                                 :disabled="checkList.indexOf(provinceGroups[index-seq+1].strKey)>=0"></checkbox-item>
-                </div>
-              </div>
-            </template>
+            </div> -->
           </template>
         </el-checkbox-group>
       </div>
@@ -116,30 +114,31 @@ import allCityJson from '../../local/all.city.json'
 import create from '../utils/create'
 import CheckboxItem from '../checkbox-item'
 import deepClone from '../utils/deep-clone.js'
+import _ from 'lodash'
 let provinceData = null;
 (function () {
-  hotCityJson.data.forEach(item => {
-    delete item["aliasEnglishValue"]
-    delete item["aliasPinYinValue"]
-    delete item["deleted"]
-    delete item["desc"]
-    delete item["itemAliasValue1"]
-    delete item["itemAliasValue2"]
-    delete item["parentIntKey"]
-    delete item["intKey"]
-    delete item["id"]
-  })
-  allCityJson.data.forEach(item => {
-    delete item["aliasEnglishValue"]
-    delete item["aliasPinYinValue"]
-    delete item["deleted"]
-    delete item["desc"]
-    delete item["itemAliasValue1"]
-    delete item["itemAliasValue2"]
-    delete item["parentIntKey"]
-    delete item["intKey"]
-    delete item["id"]
-  })
+  // hotCityJson.data.forEach(item => {
+  //   delete item["aliasEnglishValue"]
+  //   delete item["aliasPinYinValue"]
+  //   delete item["deleted"]
+  //   delete item["desc"]
+  //   delete item["itemAliasValue1"]
+  //   delete item["itemAliasValue2"]
+  //   delete item["parentIntKey"]
+  //   delete item["intKey"]
+  //   delete item["id"]
+  // })
+  // allCityJson.data.forEach(item => {
+  //   delete item["aliasEnglishValue"]
+  //   delete item["aliasPinYinValue"]
+  //   delete item["deleted"]
+  //   delete item["desc"]
+  //   delete item["itemAliasValue1"]
+  //   delete item["itemAliasValue2"]
+  //   delete item["parentIntKey"]
+  //   delete item["intKey"]
+  //   delete item["id"]
+  // })
   provinceData = deepClone(allCityJson.data.filter(item => item.parentStrKey === "489" && !hotCityJson.data.find(i => i.strKey === item.strKey)))
 })()
 export default create({
@@ -156,7 +155,11 @@ export default create({
       allCityGroups: [],
       provinceGroups: [],
       confirmList: [],
-      groups: []
+      groups: [],
+      lastExpandOption: null,
+      lastExpandChildern: null,
+      lastExpandGrandson: null
+
     }
   },
   components: {
@@ -191,16 +194,43 @@ export default create({
   methods: {
     loadData() {
       // if (this.hotCityGroups && this.hotCityGroups.length > 0) return
-      let hotCitys = this.hotCityData.map(item => ({ label: item.value, value: item.strKey, checked: false, toggle: false }))
+      // let hotCitys = this.hotCityData.map(item => ({ label: item.value, value: item.strKey, checked: false, toggle: false }))
+      let allCitys = _.map(this.allCityData, item => ({ id: item.id, label: item.value, value: item.strKey, parent: item.parentStrKey, checked: false, toggle: false, option: [], hasChildren: false }))
+      let hotCitys = _.map(this.hotCityData, item => ({ id: item.id, label: item.value, value: item.strKey, parent: item.parentStrKey, checked: false, toggle: false, option: [], hasChildren: false }))
 
+      _.each(hotCitys, item => {
+        let subItem = _.filter(allCitys, { 'parent': item.value })
+        item.option = subItem
+        item.hasChildren = !!subItem.length
+      })
+      // console.log('hotCitys', hotCitys)
+
+      let provinces = _.filter(allCitys, { 'parent': '489' })
+      provinces = _.reject(provinces, item => _.find(hotCitys, { 'value': item.value }))
+      _.each(provinces, item => {
+        let subItem = _.filter(allCitys, { 'parent': item.value })
+        item.option = subItem
+        item.hasChildren = !!subItem.length
+        if (item.hasChildren) {
+          _.each(item.option, o => {
+            let sub = _.filter(allCitys, { 'parent': o.value })
+            o.option = sub
+            o.hasChildren = !!sub.length
+          })
+        }
+      })
+      // console.log('provinces', provinces)
       this.groups.push({
         label: '热门城市',
-        option: []
+        option: hotCitys,
+        hasChildren: true
       })
       this.groups.push({
         label: '省市',
-        option: []
+        option: provinces,
+        hasChildren: true
       })
+      console.log('this.groups', this.groups)
       Promise.all([this.convertData2Groups(this.hotCityData), this.convertData2Groups(this.provinceData)]).then(result => {
         this.hotCityGroups = result[0]
         this.provinceGroups = result[1]
@@ -280,9 +310,50 @@ export default create({
         }
       })
     },
-    subItemToggle(param) {
-      this.activeStrKey = param.label === this.activeStrKey ? "-1" : param.label
+    optionToggle(option, domClass) {
+      if (this.lastExpandOption === option) {
+        option.toggle = false
+        this.lastExpandOption = null
+      } else {
+        option.toggle = true
+        if (this.lastExpandOption) {
+          this.lastExpandOption.toggle = false
+        }
+        this.lastExpandOption = option
+      }
       /* eslint-disable no-alert, no-console */
+      // console.log('optionToggle', option, domClass)
+
+    },
+    childrenToggle(option, domClass) {
+      if (this.lastExpandChildern === option) {
+        option.toggle = false
+        this.lastExpandChildern = null
+      } else {
+        option.toggle = true
+        if (this.lastExpandChildern) {
+          this.lastExpandChildern.toggle = false
+        }
+        this.lastExpandChildern = option
+      }
+    },
+    grandsonToggle(option, domClass) {
+      if (this.lastExpandGrandson === option) {
+        option.toggle = false
+        this.lastExpandGrandson = null
+      } else {
+        option.toggle = true
+        if (this.lastExpandGrandson) {
+          this.lastExpandGrandson.toggle = false
+        }
+        this.lastExpandGrandson = option
+      }
+    },
+    removeOptionCheck() {
+
+    },
+    getParents(option) {
+      const parents = option.parent
     },
     arrowUpLeft(seq) {
       return `${100 / 2 / this.column * (seq * 2 - 1)}%`
@@ -335,6 +406,9 @@ export default create({
   }
   .hp-item {
     display: inline-block;
+    &-group {
+      display: none;
+    }
   }
   .hp-sub-item-group {
     background-color: #eef1f6;
@@ -358,6 +432,9 @@ export default create({
     font-size: 14px;
     font-weight: bold;
     margin: 10px 0;
+  }
+  .el-checkbox-group {
+    font-size: 14px;
   }
 }
 </style>

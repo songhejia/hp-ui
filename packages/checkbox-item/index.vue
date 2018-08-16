@@ -4,6 +4,7 @@
        :style="{'width':checkboxItemWidth}">
     <span class="hp-checkbox-item-1">
       <el-checkbox :label="label"
+                   :checked="checked"
                    :disabled="disabled">{{text}}</el-checkbox>
     </span>
     <span class="hp-sub-item-toggle hp-checkbox-item-2"
@@ -21,6 +22,7 @@ export default create({
   props: {
     label: String,
     text: String,
+    checked: Boolean,
     hasSubItem: {
       type: Boolean,
       default: false
@@ -42,6 +44,7 @@ export default create({
     subItemToggle() {
       // !this.disabled && (this.isExpand = !this.isExpand)
       this.$emit('subItemToggle', { label: this.label, text: this.text })
+      this.$emit('toggle', { label: this.label, text: this.text })
     }
   }
 })
