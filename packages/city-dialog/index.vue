@@ -4,7 +4,7 @@
       <label v-if="!!label">{{label}}</label>
       <el-input @focus="dialogVisible = true"
                 v-model="confirmStr"
-                size="small"
+                size="mini"
                 placeholder="请选择"
                 :readonly="true">
         <i slot="suffix"
@@ -357,6 +357,7 @@ export default create({
   .title-label {
     font-size: 14px;
     font-weight: bold;
+    margin: 10px 0;
   }
 }
 </style>
