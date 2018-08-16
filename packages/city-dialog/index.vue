@@ -155,7 +155,8 @@ export default create({
       hotCityGroups: [],
       allCityGroups: [],
       provinceGroups: [],
-      confirmList: []
+      confirmList: [],
+      groups: []
     }
   },
   components: {
@@ -190,7 +191,16 @@ export default create({
   methods: {
     loadData() {
       // if (this.hotCityGroups && this.hotCityGroups.length > 0) return
+      let hotCitys = this.hotCityData.map(item => ({ label: item.value, value: item.strKey, checked: false, toggle: false }))
 
+      this.groups.push({
+        label: '热门城市',
+        option: []
+      })
+      this.groups.push({
+        label: '省市',
+        option: []
+      })
       Promise.all([this.convertData2Groups(this.hotCityData), this.convertData2Groups(this.provinceData)]).then(result => {
         this.hotCityGroups = result[0]
         this.provinceGroups = result[1]
