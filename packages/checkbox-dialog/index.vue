@@ -27,22 +27,22 @@
             </div>
             <template v-if="group.hasChildren"
                       v-for="(option,optionIndex) in group.option">
-              <div :class="['hp-item','hp-item-'+option.index,option.toggle?'is-active':'']"
+              <div :class="['hp-item','hp-item-'+option.index]"
                    :style="{'width':checkboxItemWidth}">
                 <checkbox-item :option="option"
                                @toggle="optionToggle(option,group)"></checkbox-item>
               </div>
-              <div :class="['hp-item-list','hp-item-list-option','hp-item-list-'+option.index+'-'+option.value,option.toggle?'is-expand':'']">
-                <template v-if="option.hasChildren&&option.toggle"
-                          v-for="(children,childrenIndex) in option.option">
+              <div v-if="option.hasChildren&&option.toggle"
+                   :class="['hp-item-list','hp-item-list-option','hp-item-list-'+option.index+'-'+option.value]">
+                <template v-for="(children,childrenIndex) in option.option">
                   <div :class="['hp-item','hp-item-'+children.index]"
                        :style="{'width':checkboxItemWidth}">
                     <checkbox-item :option="children"
                                    @toggle="childrenToggle(children,option)"></checkbox-item>
                   </div>
-                  <div :class="['hp-item-list','hp-item-list-children','hp-item-list-'+children.index+'-'+children.value,children.toggle?'is-expand':'']">
-                    <template v-if="children.hasChildren&&children.toggle"
-                              v-for="(grandson,grandsonIndex) in children.option">
+                  <div v-if="children.hasChildren&&children.toggle"
+                       :class="['hp-item-list','hp-item-list-children','hp-item-list-'+children.index+'-'+children.value]">
+                    <template v-for="(grandson,grandsonIndex) in children.option">
                       <div :class="['hp-item','hp-item-'+grandson.index]"
                            :style="{'width':checkboxItemWidth}">
                         <checkbox-item :option="grandson"></checkbox-item>
@@ -109,7 +109,7 @@ export default create({
   props: {
     dialogId: {
       type: String,
-      default: Math.round(Math.random() * 1000000) + ''
+      required: true
     },
     label: String,
     title: String,
@@ -238,6 +238,7 @@ export default create({
         const optionDom = $d.getEle(`.hp-${this.dialogId} .hp-item-${parent.index}-${afterDomIndex}`)[0]
         const subGroupDom = $d.getEle(`.hp-${this.dialogId} .hp-item-list-${option.index}-${option.value}`)[0]
         $d.insertAfter(subGroupDom, optionDom)
+
       })
     },
     optionToggle(option, parent) {
@@ -310,7 +311,7 @@ export default create({
   .hp-item {
     display: inline-block;
     &-list {
-      display: none;
+      // display: none;
       .el-checkbox__label {
         font-size: 12px;
       }

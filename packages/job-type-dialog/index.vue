@@ -5,7 +5,8 @@
                      :title="title"
                      :column='3'
                      v-model="model"
-                     @confirmClick="confirmClick"></checkbox-dialog>
+                     @confirmClick="confirmClick"
+                     dialog-id="job-type"></checkbox-dialog>
   </div>
 </template>
 <script>

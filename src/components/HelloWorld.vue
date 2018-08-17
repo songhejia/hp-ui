@@ -40,7 +40,7 @@
                         :limit="3"></hp-job-type-dialog>
     <hp-city-dialog v-model="citys"
                     @confirmClick="confirmCityClick"
-                    label="城市"
+                    label="工作地点"
                     title="城市"
                     :limit="6"></hp-city-dialog>
   </div>

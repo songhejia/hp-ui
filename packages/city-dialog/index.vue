@@ -4,7 +4,8 @@
                      :label="label"
                      :title="title"
                      v-model="model"
-                     @confirmClick="confirmClick"></checkbox-dialog>
+                     @confirmClick="confirmClick"
+                     dialog-id="city"></checkbox-dialog>
   </div>
 </template>
 <script>
