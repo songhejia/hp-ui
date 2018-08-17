@@ -1,17 +1,15 @@
 <template>
-  <div class="hp-checkbox-item"
-       :class="isExpand?'hp-checkbox-item-active':''"
-       :style="{'width':checkboxItemWidth}">
+  <div :class="['hp-checkbox-item',option.toggle?'hp-checkbox-item-active':'']">
     <span class="hp-checkbox-item-1">
-      <el-checkbox :label="label"
-                   :checked="checked"
-                   :disabled="disabled">{{text}}</el-checkbox>
+      <el-checkbox :label="option.value"
+                   :checked="option.checked"
+                   :disabled="option.disabled">{{option.label}}</el-checkbox>
     </span>
     <span class="hp-sub-item-toggle hp-checkbox-item-2"
           @click="subItemToggle">
-      <i v-if="hasSubItem&&!disabled"
+      <i v-if="option.hasChildren&&!option.disabled"
          class="el-icon-caret-top"
-         :class="isExpand?'is-reverse':''"></i>
+         :class="option.toggle?'is-reverse':''"></i>
     </span>
   </div>
 </template>
@@ -20,30 +18,12 @@ import create from '../utils/create'
 export default create({
   name: 'checkbox-item',
   props: {
-    label: String,
-    text: String,
-    checked: Boolean,
-    hasSubItem: {
-      type: Boolean,
-      default: false
-    },
-    isExpand: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    checkboxItemWidth: {
-      type: String,
-      default: '100%'
-    }
+    option: Object
   },
   methods: {
     subItemToggle() {
       // !this.disabled && (this.isExpand = !this.isExpand)
-      this.$emit('subItemToggle', { label: this.label, text: this.text })
+      // this.$emit('subItemToggle', { label: this.label, text: this.text })
       this.$emit('toggle', { label: this.label, text: this.text })
     }
   }
@@ -52,8 +32,8 @@ export default create({
 <style lang="scss">
 .hp-checkbox-item {
   display: inline-block;
-  padding: 5px;
-  margin: 2px;
+  width: 100%;
+  padding: 6px;
   box-sizing: border-box;
   white-space: nowrap;
   position: relative;
