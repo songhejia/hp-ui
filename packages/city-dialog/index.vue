@@ -182,7 +182,6 @@ export default create({
         if (group.hasChildren) {
           group.option = _.sortBy(group.option, ['order'])
           _.each(group.option, (option, optionIndex) => {
-            option.checked = false
             option.disabled = false
             option.toggle = false
             option.hasChildren = !!option.option.length
@@ -190,7 +189,6 @@ export default create({
             if (option.hasChildren) {
               option.option = _.sortBy(option.option, ['order'])
               _.each(option.option, (children, childrenIndex) => {
-                children.checked = false
                 children.toggle = false
                 children.disabled = false
                 children.hasChildren = !!children.option.length
@@ -198,7 +196,6 @@ export default create({
                 if (children.hasChildren) {
                   children.option = _.sortBy(children.option, ['order'])
                   _.each(children.option, (grandson, grandsonIndex) => {
-                    grandson.checked = false
                     grandson.toggle = false
                     grandson.disabled = false
                     grandson.hasChildren = !!grandson.option.length
