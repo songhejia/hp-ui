@@ -4,7 +4,7 @@
 
 ## install
 ```
-npm install hp-ui -D
+npm install hp-ui -S
 ```
 ## use
 ```

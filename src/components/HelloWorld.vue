@@ -35,12 +35,12 @@
     <br/>
     <hp-job-type-dialog v-model="jobType"
                         @confirmClick="confirmClick"
-                        label=""
+                        label="职位类别"
                         title="职位类别"
                         :limit="3"></hp-job-type-dialog>
     <hp-city-dialog v-model="citys"
                     @confirmClick="confirmCityClick"
-                    label=""
+                    label="工作地点"
                     title="城市"
                     :limit="6"></hp-city-dialog>
   </div>
@@ -78,7 +78,7 @@ export default {
         jobOutCount: 1
       },
       jobType: ['4010200', '7004000'],
-      citys: []
+      citys: ['530']
     }
   },
   components: {
@@ -91,11 +91,11 @@ export default {
     [CityDialog.name]: CityDialog
   },
   methods: {
-    confirmClick() {
-      console.log('confirmClick', this.jobType)
+    confirmClick(confirmList) {
+      console.log('confirmClick', this.jobType, confirmList)
     },
-    confirmCityClick() {
-      console.log('confirmClick', this.citys)
+    confirmCityClick(confirmList) {
+      console.log('confirmClick', this.citys, confirmList)
     }
   }
 }
