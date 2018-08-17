@@ -31,7 +31,8 @@
               <div :class="['hp-item','hp-item-'+option.index,option.toggle?'is-active':'']"
                    :style="{'width':checkboxItemWidth}">
                 <checkbox-item :option="option"
-                               @toggle="optionToggle(option,group)"></checkbox-item>
+                               @toggle="optionToggle(option,group)"
+                               @change="itemChange"></checkbox-item>
               </div>
               <div :class="['hp-item-list','hp-item-list-option','hp-item-list-'+option.index+'-'+option.value,option.toggle?'is-expand':'']">
                 <template v-if="option.hasChildren&&option.toggle"
@@ -39,14 +40,16 @@
                   <div :class="['hp-item','hp-item-'+children.index]"
                        :style="{'width':checkboxItemWidth}">
                     <checkbox-item :option="children"
-                                   @toggle="childrenToggle(children,option)"></checkbox-item>
+                                   @toggle="childrenToggle(children,option)"
+                                   @change="itemChange"></checkbox-item>
                   </div>
                   <div :class="['hp-item-list','hp-item-list-children','hp-item-list-'+children.index+'-'+children.value,children.toggle?'is-expand':'']">
                     <template v-if="children.hasChildren&&children.toggle"
                               v-for="(grandson,grandsonIndex) in children.option">
                       <div :class="['hp-item','hp-item-'+grandson.index]"
                            :style="{'width':checkboxItemWidth}">
-                        <checkbox-item :option="grandson"></checkbox-item>
+                        <checkbox-item :option="grandson"
+                                       @change="itemChange"></checkbox-item>
                       </div>
                     </template>
                   </div>
@@ -180,6 +183,7 @@ export default create({
           group.option = _.sortBy(group.option, ['order'])
           _.each(group.option, (option, optionIndex) => {
             option.checked = false
+            option.disabled = false
             option.toggle = false
             option.hasChildren = !!option.option.length
             option.index = `${groupIndex}-${optionIndex}`
@@ -188,6 +192,7 @@ export default create({
               _.each(option.option, (children, childrenIndex) => {
                 children.checked = false
                 children.toggle = false
+                children.disabled = false
                 children.hasChildren = !!children.option.length
                 children.index = `${groupIndex}-${optionIndex}-${childrenIndex}`
                 if (children.hasChildren) {
@@ -195,6 +200,7 @@ export default create({
                   _.each(children.option, (grandson, grandsonIndex) => {
                     grandson.checked = false
                     grandson.toggle = false
+                    grandson.disabled = false
                     grandson.hasChildren = !!grandson.option.length
                     grandson.index = `${groupIndex}-${optionIndex}-${childrenIndex}-${grandsonIndex}`
                   })
@@ -241,9 +247,24 @@ export default create({
       this.$emit('confirmClick', this.confirmList)
       this.dialogVisible = false
     },
-    handleChange() {
+    handleChange(option) {
+      console.log('handleChange', option)
       //判断选中的值是否有父子关系，如果有则取消子
       // const repeatList = this.checkList.map(item => this.groups.map(group => group.children))
+    },
+    itemChange(option) {
+      const checked = _.indexOf(this.checkList, option.value) >= 0
+
+      const handleOption = o => {
+        if (o.hasChildren) {
+          _.each(o.option, obj => {
+            obj.disabled = checked
+            obj.disabled && _.pull(this.checkList, obj.value)
+            if (obj.hasChildren) handleOption(obj)
+          })
+        }
+      }
+      handleOption(option)
     },
     validateLimit() {
       const cnt = this.checkList.length
@@ -291,18 +312,18 @@ export default create({
       }
       option.toggle && this.expand(option, parent)
     },
-    grandsonToggle(option, parent) {
-      option.toggle = true
-      if (this.lastExpandGrandson === option) {
-        this.lastExpandGrandson = null
-      } else {
-        if (this.lastExpandGrandson) {
-          this.lastExpandGrandson.toggle = false
-        }
-        this.lastExpandGrandson = option
-      }
-      option.toggle && this.expand(option, parent)
-    },
+    // grandsonToggle(option, parent) {
+    //   option.toggle = true
+    //   if (this.lastExpandGrandson === option) {
+    //     this.lastExpandGrandson = null
+    //   } else {
+    //     if (this.lastExpandGrandson) {
+    //       this.lastExpandGrandson.toggle = false
+    //     }
+    //     this.lastExpandGrandson = option
+    //   }
+    //   option.toggle && this.expand(option, parent)
+    // },
     removeOptionCheck() {
 
     },

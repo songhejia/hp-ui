@@ -2,13 +2,13 @@
   <div :class="['hp-checkbox-item',option.toggle?'hp-checkbox-item-active':'']">
     <span class="hp-checkbox-item-1">
       <el-checkbox :label="option.value"
-                   :checked="option.checked"
-                   :disabled="option.disabled">{{option.label}}</el-checkbox>
+                   :disabled="option.disabled"
+                   @change="change">{{option.label}}</el-checkbox>
     </span>
-    <span class="hp-sub-item-toggle hp-checkbox-item-2"
-          @click="subItemToggle">
-      <i v-if="option.hasChildren&&!option.disabled"
-         class="el-icon-caret-top"
+    <span v-if="option.hasChildren&&!option.disabled"
+          class="hp-sub-item-toggle hp-checkbox-item-2"
+          @click="toggle">
+      <i class="el-icon-caret-top"
          :class="option.toggle?'is-reverse':''"></i>
     </span>
   </div>
@@ -21,10 +21,11 @@ export default create({
     option: Object
   },
   methods: {
-    subItemToggle() {
-      // !this.disabled && (this.isExpand = !this.isExpand)
-      // this.$emit('subItemToggle', { label: this.label, text: this.text })
-      this.$emit('toggle', { label: this.label, text: this.text })
+    toggle() {
+      this.$emit('toggle', this.option)
+    },
+    change() {
+      this.$emit('change', this.option)
     }
   }
 })
@@ -54,13 +55,12 @@ export default create({
     vertical-align: middle;
     .el-checkbox {
       .el-checkbox__label {
-        // width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         vertical-align: middle;
       }
       .el-checkbox__inner {
-        vertical-align: middle;
+        vertical-align: top;
       }
     }
   }
