@@ -42,7 +42,7 @@ export default create({
   }
   &-active,
   &:hover {
-    background-color: #f5f6fa;
+    background-color: #f2f6fc;
     .hp-sub-item-toggle {
       display: inline-block;
     }
@@ -50,15 +50,23 @@ export default create({
   &-1 {
     display: inline-block;
     width: 80%;
+    overflow: hidden;
+    vertical-align: middle;
     .el-checkbox {
-      width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      vertical-align: middle;
+      .el-checkbox__label {
+        // width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+      }
+      .el-checkbox__inner {
+        vertical-align: middle;
+      }
     }
   }
   &-2 {
     width: 20%;
+    position: relative;
     font-size: 14px;
     height: 19px;
     text-align: center;

@@ -42,7 +42,8 @@
                     @confirmClick="confirmCityClick"
                     label=""
                     title="城市"
-                    :limit="6"></hp-city-dialog>
+                    :limit="6"
+                    :column="6"></hp-city-dialog>
   </div>
 </template>
 
