@@ -3,7 +3,7 @@
     <div class="hp-city-dialog-form">
       <label v-if="!!label">{{label}}</label>
       <el-input @focus="dialogVisible = true"
-                v-model="confirmStr"
+                v-model="confirmText"
                 size="mini"
                 placeholder="请选择"
                 :readonly="true">
@@ -63,11 +63,11 @@
             class="dialog-footer">
         <div class="checked-tag">
           <el-tag v-for="tag in checkObjList"
-                  :key="tag.strKey"
+                  :key="tag.value"
                   closable
                   size="small"
                   @close="handleCloseTag(tag)">
-            {{tag.value}}
+            {{tag.label}}
           </el-tag>
         </div>
         <div>
@@ -88,7 +88,6 @@ import hotCityJson from '../../local/hot.city.json'
 import allCityJson from '../../local/all.city.json'
 import create from '../utils/create'
 import CheckboxItem from '../checkbox-item'
-import deepClone from '../utils/deep-clone.js'
 import _ from 'lodash'
 import $d from '../utils/$d.js'
 export default create({
@@ -99,8 +98,8 @@ export default create({
       hotCityData: hotCityJson.data,
       allCityData: allCityJson.data,
       checkList: [],
-      confirmList: [],
       groups: [],
+      confirmText: '',
       lastExpandOption: null,
       lastExpandChildern: null,
       lastExpandGrandson: null
@@ -131,10 +130,6 @@ export default create({
       if (!this.checkList || !Array.isArray(this.checkList)) return []
       return this.checkList.map(key => this.findGroupInGroups(key))
     },
-    confirmStr() {
-      if (!this.confirmList) return ""
-      return this.confirmList.map(item => item.value).join(';')
-    },
     checkboxItemWidth() {
       return `${100 / this.column}%`
     }
@@ -163,7 +158,6 @@ export default create({
           })
         }
       })
-      // console.log('provinces', provinces)
       const groups = []
       groups.push({
         label: '热门城市',
@@ -208,29 +202,21 @@ export default create({
         }
       })
       this.groups = groups
-      console.log('this.groups', this.groups)
     },
     findGroupInGroups(key) {
-      let isFind = false
-      let result = {}
-      const findGroup = function (groups, key) {
-        if (groups && groups.length > 0) {
-          for (const index in groups) {
-            if (isFind) break
-            const item = groups[index]
-            if (item.children && item.children.length > 0) {
-              findGroup(item.children, key)
-            }
-            if (item && item.strKey === key && !isFind) {
-              result = item
-              isFind = true
-              break
-            }
+      let result = null
+      const findGroup = function (array, value) {
+        _.each(array, item => {
+          if (item.value === value) {
+            result = item
           }
-        }
+          if (!result && item.hasChildren) {
+            return findGroup(item.option, value)
+          }
+        })
+        if (result) return result
       }
-      findGroup(this.allCityData, key)
-      return result || {}
+      return findGroup(this.groups, key) || {}
     },
     handleCloseTag(tag) {
       this.checkList.splice(this.checkList.indexOf(tag.strKey), 1)
@@ -239,19 +225,25 @@ export default create({
       this.checkList.splice(0, this.checkList.length)
     },
     confirmCheckListClick() {
-      this.confirmList = deepClone(this.checkObjList)
+      const confirmList = _.cloneDeep(this.checkObjList)
+      this.confirmText = _.map(confirmList, 'label').join(';')
       this.$emit('input', this.checkList)
-      this.$emit('confirmClick', this.confirmList)
+      this.$emit('confirmClick', confirmList)
       this.dialogVisible = false
     },
     handleChange(option) {
-      console.log('handleChange', option)
-      //判断选中的值是否有父子关系，如果有则取消子
-      // const repeatList = this.checkList.map(item => this.groups.map(group => group.children))
+      const cnt = this.checkList.length
+      this.$nextTick(_ => {
+        if (this.checkList.length >= this.limit && cnt === this.checkList.length) {
+          this.$message({
+            message: `最多只能选择${this.limit}条`,
+            type: 'warning'
+          });
+        }
+      })
     },
     itemChange(option) {
       const checked = _.indexOf(this.checkList, option.value) >= 0
-
       const handleOption = o => {
         if (o.hasChildren) {
           _.each(o.option, obj => {
@@ -262,17 +254,6 @@ export default create({
         }
       }
       handleOption(option)
-    },
-    validateLimit() {
-      const cnt = this.checkList.length
-      this.$nextTick(_ => {
-        if (this.checkList.length >= this.limit && cnt === this.checkList.length) {
-          this.$message({
-            message: `最多只能选择${this.limit}条`,
-            type: 'warning'
-          });
-        }
-      })
     },
     expand(option, parent) {
       const lastIndex = +_.last(_.split(option.index, '-'))
@@ -308,27 +289,6 @@ export default create({
         this.lastExpandChildren = option
       }
       option.toggle && this.expand(option, parent)
-    },
-    // grandsonToggle(option, parent) {
-    //   option.toggle = true
-    //   if (this.lastExpandGrandson === option) {
-    //     this.lastExpandGrandson = null
-    //   } else {
-    //     if (this.lastExpandGrandson) {
-    //       this.lastExpandGrandson.toggle = false
-    //     }
-    //     this.lastExpandGrandson = option
-    //   }
-    //   option.toggle && this.expand(option, parent)
-    // },
-    removeOptionCheck() {
-
-    },
-    getParents(option) {
-      const parents = option.parent
-    },
-    arrowUpLeft(seq) {
-      return `${100 / 2 / this.column * (seq * 2 - 1)}%`
     }
   },
   mounted() {
