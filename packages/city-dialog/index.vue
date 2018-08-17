@@ -1,9 +1,10 @@
 <template>
   <div class="hp-city-dialog">
     <checkbox-dialog :data="groups"
-                     label="工作地点"
-                     title="城市"
-                     v-model="model"></checkbox-dialog>
+                     :label="label"
+                     :title="title"
+                     v-model="model"
+                     @confirmClick="confirmClick"></checkbox-dialog>
   </div>
 </template>
 <script>
@@ -27,7 +28,6 @@ export default create({
   computed: {
     model: {
       get() {
-        console.log(this.value)
         this.selfModel = this.value
         return this.selfModel
       },
@@ -41,10 +41,6 @@ export default create({
     value: Array,
     label: String,
     title: String,
-    limit: {
-      type: Number,
-      default: 3
-    },
     column: {
       type: Number,
       default: 6
@@ -86,6 +82,9 @@ export default create({
         hasChildren: true
       })
       this.groups = groups
+    },
+    confirmClick(confirmList) {
+      this.$emit('confirmClick', confirmList)
     }
   },
   mounted() {

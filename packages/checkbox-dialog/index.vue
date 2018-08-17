@@ -19,8 +19,7 @@
       <div class="hp-dialog-container"
            :class="'hp-'+dialogId">
         <el-checkbox-group v-model="checkList"
-                           :max="limit"
-                           @change="handleChange">
+                           :max="limit">
           <template v-for="(group,groupIndex) in groups">
             <div class="title-label"
                  v-if="group.label">
@@ -31,8 +30,7 @@
               <div :class="['hp-item','hp-item-'+option.index,option.toggle?'is-active':'']"
                    :style="{'width':checkboxItemWidth}">
                 <checkbox-item :option="option"
-                               @toggle="optionToggle(option,group)"
-                               @change="itemChange"></checkbox-item>
+                               @toggle="optionToggle(option,group)"></checkbox-item>
               </div>
               <div :class="['hp-item-list','hp-item-list-option','hp-item-list-'+option.index+'-'+option.value,option.toggle?'is-expand':'']">
                 <template v-if="option.hasChildren&&option.toggle"
@@ -40,16 +38,14 @@
                   <div :class="['hp-item','hp-item-'+children.index]"
                        :style="{'width':checkboxItemWidth}">
                     <checkbox-item :option="children"
-                                   @toggle="childrenToggle(children,option)"
-                                   @change="itemChange"></checkbox-item>
+                                   @toggle="childrenToggle(children,option)"></checkbox-item>
                   </div>
                   <div :class="['hp-item-list','hp-item-list-children','hp-item-list-'+children.index+'-'+children.value,children.toggle?'is-expand':'']">
                     <template v-if="children.hasChildren&&children.toggle"
                               v-for="(grandson,grandsonIndex) in children.option">
                       <div :class="['hp-item','hp-item-'+grandson.index]"
                            :style="{'width':checkboxItemWidth}">
-                        <checkbox-item :option="grandson"
-                                       @change="itemChange"></checkbox-item>
+                        <checkbox-item :option="grandson"></checkbox-item>
                       </div>
                     </template>
                   </div>
@@ -69,6 +65,13 @@
                   @close="handleCloseTag(tag)">
             {{tag.label}}
           </el-tag>
+        </div>
+        <div v-show="limit===this.checkList.length"
+             class="hp-max-limit">
+          <span>
+            <i class="el-icon-warning"></i>
+            <label>最多只能选择{{limit}}个</label>
+          </span>
         </div>
         <div>
           <el-button @click="clearCheckList"
@@ -94,7 +97,6 @@ export default create({
     return {
       dialogVisible: false,
       checkList: this.value || [],
-      // confirmText: '',
       lastExpandOption: null,
       lastExpandChildern: null,
       lastExpandGrandson: null,
@@ -128,30 +130,41 @@ export default create({
     },
     value: Array
   },
+  watch: {
+    checkList: function (val, oldVal) {
+      const value = _.first(_.difference(val, oldVal) || _.difference(oldVal, val))
+      const option = this.findGroupInGroups(value)
+      const checked = _.indexOf(this.checkList, option.value) >= 0
+      const handleOption = o => {
+        if (o.hasChildren) {
+          _.each(o.option, obj => {
+            obj.disabled = checked
+            obj.disabled && _.pull(this.checkList, obj.value)
+            if (obj.hasChildren) handleOption(obj)
+          })
+        }
+      }
+      handleOption(option)
+    }
+  },
   computed: {
     checkObjList() {
       if (!this.checkList || !Array.isArray(this.checkList)) return []
       return this.checkList.map(key => this.findGroupInGroups(key))
+    },
+    confirmObjList() {
+      if (!this.value || !Array.isArray(this.value)) return []
+      return this.value.map(key => this.findGroupInGroups(key))
     },
     checkboxItemWidth() {
       return `${100 / this.column}%`
     },
     confirmText: {
       get() {
-        return _.map(this.checkObjList, 'label').join(';')
+        return _.map(this.confirmObjList, 'label').join(';')
       },
       set() { }
     },
-    // model: {
-    //   get() {
-    //     this.selfModel = this.value
-    //     return this.selfModel
-    //   },
-    //   set(val) {
-    //     this.$emit('input', val)
-    //     this.selfModel = val
-    //   }
-    // },
     groups: {
       get() {
         /*处理数据*/
@@ -208,41 +221,15 @@ export default create({
       return findGroup(this.groups, key) || {}
     },
     handleCloseTag(tag) {
-      this.checkList.splice(this.checkList.indexOf(tag.strKey), 1)
+      this.checkList.splice(this.checkList.indexOf(tag.value), 1)
     },
     clearCheckList() {
       this.checkList.splice(0, this.checkList.length)
     },
     confirmCheckListClick() {
-      const confirmList = _.cloneDeep(this.checkObjList)
-      this.confirmText = _.map(confirmList, 'label').join(';')
       this.$emit('input', this.checkList)
-      this.$emit('confirmClick', confirmList)
+      this.$emit('confirmClick', this.checkObjList)
       this.dialogVisible = false
-    },
-    handleChange(option) {
-      const cnt = this.checkList.length
-      this.$nextTick(_ => {
-        if (this.checkList.length >= this.limit && cnt === this.checkList.length) {
-          this.$message({
-            message: `最多只能选择${this.limit}条`,
-            type: 'warning'
-          });
-        }
-      })
-    },
-    itemChange(option) {
-      const checked = _.indexOf(this.checkList, option.value) >= 0
-      const handleOption = o => {
-        if (o.hasChildren) {
-          _.each(o.option, obj => {
-            obj.disabled = checked
-            obj.disabled && _.pull(this.checkList, obj.value)
-            if (obj.hasChildren) handleOption(obj)
-          })
-        }
-      }
-      handleOption(option)
     },
     expand(option, parent) {
       const lastIndex = +_.last(_.split(option.index, '-'))
@@ -347,6 +334,13 @@ export default create({
   }
   .el-checkbox-group {
     font-size: 14px;
+  }
+  .hp-max-limit {
+    text-align: left;
+    > span {
+      font-size: 12px;
+      color: #f56c6c;
+    }
   }
 }
 </style>
