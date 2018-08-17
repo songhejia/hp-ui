@@ -79,7 +79,7 @@ export default {
         jobOutCount: 1
       },
       jobType: ['4010200', '7004000'],
-      citys: []
+      citys: ['530']
     }
   },
   components: {
