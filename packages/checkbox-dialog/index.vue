@@ -274,8 +274,8 @@ export default create({
     }
   },
   mounted() {
-    this.checkList.push(...this.value)
     setTimeout(() => {
+      this.checkList.push(...this.value)
       this.handleCheckList(this.checkList, [])
     }, 0);
   }
