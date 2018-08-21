@@ -96,7 +96,7 @@ export default create({
   data() {
     return {
       dialogVisible: false,
-      checkList: this.value || [],
+      checkList: _.clone(this.value) || [],
       lastExpandOption: null,
       lastExpandChildern: null,
       lastExpandGrandson: null,
@@ -238,7 +238,6 @@ export default create({
         const optionDom = $d.getEle(`.hp-${this.dialogId} .hp-item-${parent.index}-${afterDomIndex}`)[0]
         const subGroupDom = $d.getEle(`.hp-${this.dialogId} .hp-item-list-${option.index}-${option.value}`)[0]
         $d.insertAfter(subGroupDom, optionDom)
-
       })
     },
     optionToggle(option, parent) {
