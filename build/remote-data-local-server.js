@@ -4,6 +4,13 @@ const axios = require('axios')
 const _ = require('lodash')
 
 const content_url = 'http://api.open.zhaopin.com/dict/dictAdminService/listAllItems?access_token=c4215a32bbf74a2aa410db8473a58f4dV8k5'
+/**
+ * 加载远程数据
+ *
+ * @param {*} url
+ * @param {*} params
+ * @returns
+ */
 function loadRemoteData(url, params) {
   return new Promise(function (resolve, reject) {
     axios.get(url, {
@@ -16,6 +23,12 @@ function loadRemoteData(url, params) {
   })
 }
 
+/**
+ * 输出内容到local目录
+ *
+ * @param {*} id
+ * @param {*} name
+ */
 function outputFile(id, name) {
   loadRemoteData(content_url, { dictId: id }).then(result => {
     const outputData = []
