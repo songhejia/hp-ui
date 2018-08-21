@@ -9,16 +9,16 @@
   </div>
 </template>
 <script>
-import hotCityJson from '../../local/hot.city.json'
-import allCityJson from '../../local/all.city.json'
+import hotCityJson from '../../local/hot_city.json'
+import allCityJson from '../../local/region_relation.json'
 import create from '../utils/create'
 import CheckboxDialog from '../checkbox-dialog'
 export default create({
   name: 'city-dialog',
   data() {
     return {
-      hotCityData: hotCityJson.data,
-      allCityData: allCityJson.data,
+      hotCityData: hotCityJson,
+      allCityData: allCityJson,
       groups: [],
       selfModel: ''
     }
@@ -49,8 +49,8 @@ export default create({
   },
   methods: {
     loadData() {
-      const allCitys = _.map(this.allCityData, item => ({ order: item.order, label: item.value, value: item.strKey, parent: item.parentStrKey, option: [] }))
-      const hotCitys = _.map(this.hotCityData, item => ({ order: item.order, label: item.value, value: item.strKey, parent: item.parentStrKey, option: [] }))
+      const allCitys = _.map(this.allCityData, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
+      const hotCitys = _.map(this.hotCityData, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
 
       _.each(hotCitys, item => {
         let subItem = _.filter(allCitys, { 'parent': item.value })
