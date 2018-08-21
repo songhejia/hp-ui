@@ -24,7 +24,7 @@
     </hp-layout>
     <hp-top-nav-bar :menus="menus"
                     :letter-info="letterInfo"
-                    :letterTotal="999" />
+                    :letter-total="999" />
     <hp-header-bar>
       <div slot="left">卓聘·顾问执行系统</div>
       <div slot="right">卓聘·顾问执行系统</div>
@@ -51,9 +51,9 @@ import hello from "../../packages/hello";
 import layout from "../../packages/layout";
 import TopNavBar from "../../packages/top-nav-bar";
 import HeaderBar from "../../packages/header-bar";
-import IconButton from '../../packages/icon-button'
-import JobTypeDialog from '../../packages/job-type-dialog'
-import CityDialog from '../../packages/city-dialog'
+import IconButton from "../../packages/icon-button";
+import JobTypeDialog from "../../packages/job-type-dialog";
+import CityDialog from "../../packages/city-dialog";
 export default {
   name: "HelloWorld",
   data() {
@@ -77,9 +77,9 @@ export default {
         newJobCount: 8,
         jobOutCount: 1
       },
-      jobType: ['4010200', '7004000'],
-      citys: ['530']
-    }
+      jobType: ["4010200", "7004000"],
+      citys: ["530"]
+    };
   },
   components: {
     [hello.name]: hello,
@@ -92,11 +92,13 @@ export default {
   },
   methods: {
     confirmClick(confirmList) {
-      console.log('confirmClick', this.jobType, confirmList)
+      /* eslint-disable no-alert, no-console */
+      console.log("confirmClick", this.jobType, confirmList);
     },
     confirmCityClick(confirmList) {
-      console.log('confirmClick', this.citys, confirmList)
+      /* eslint-disable no-alert, no-console */
+      console.log("confirmClick", this.citys, confirmList);
     }
   }
-}
+};
 </script>
