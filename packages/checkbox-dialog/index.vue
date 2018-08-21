@@ -32,16 +32,17 @@
                 <checkbox-item :option="option"
                                @toggle="optionToggle(option,group)"></checkbox-item>
               </div>
-              <div v-if="option.hasChildren&&option.toggle"
-                   :class="['hp-item-list','hp-item-list-option','hp-item-list-'+option.index+'-'+option.value]">
-                <template v-for="(children,childrenIndex) in option.option">
+              <div v-if="option.hasChildren"
+                   :class="['hp-item-list','hp-item-list-option','hp-item-list-'+option.index+'-'+option.value,option.toggle?'is-expand':'']">
+                <template v-if="option.toggle"
+                          v-for="(children,childrenIndex) in option.option">
                   <div :class="['hp-item','hp-item-'+children.index]"
                        :style="{'width':checkboxItemWidth}">
                     <checkbox-item :option="children"
                                    @toggle="childrenToggle(children,option)"></checkbox-item>
                   </div>
-                  <div v-if="children.hasChildren&&children.toggle"
-                       :class="['hp-item-list','hp-item-list-children','hp-item-list-'+children.index+'-'+children.value]">
+                  <div v-if="children.hasChildren"
+                       :class="['hp-item-list','hp-item-list-children','hp-item-list-'+children.index+'-'+children.value,children.toggle?'is-expand':'']">
                     <template v-for="(grandson,grandsonIndex) in children.option">
                       <div :class="['hp-item','hp-item-'+grandson.index]"
                            :style="{'width':checkboxItemWidth}">
@@ -237,6 +238,7 @@ export default create({
       this.$nextTick(_ => {
         const optionDom = $d.getEle(`.hp-${this.dialogId} .hp-item-${parent.index}-${afterDomIndex}`)[0]
         const subGroupDom = $d.getEle(`.hp-${this.dialogId} .hp-item-list-${option.index}-${option.value}`)[0]
+        console.log(optionDom, subGroupDom)
         $d.insertAfter(subGroupDom, optionDom)
       })
     },
@@ -310,7 +312,7 @@ export default create({
   .hp-item {
     display: inline-block;
     &-list {
-      // display: none;
+      display: none;
       .el-checkbox__label {
         font-size: 12px;
       }
