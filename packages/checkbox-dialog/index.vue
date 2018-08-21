@@ -97,7 +97,7 @@ export default create({
   data() {
     return {
       dialogVisible: false,
-      checkList: _.clone(this.value) || [],
+      checkList: [],
       lastExpandOption: null,
       lastExpandChildern: null,
       lastExpandGrandson: null,
@@ -133,19 +133,7 @@ export default create({
   },
   watch: {
     checkList: function (val, oldVal) {
-      const value = _.first(_.difference(val, oldVal) || _.difference(oldVal, val))
-      const option = this.findGroupInGroups(value)
-      const checked = _.indexOf(this.checkList, option.value) >= 0
-      const handleOption = o => {
-        if (o.hasChildren) {
-          _.each(o.option, obj => {
-            obj.disabled = checked
-            obj.disabled && _.pull(this.checkList, obj.value)
-            if (obj.hasChildren) handleOption(obj)
-          })
-        }
-      }
-      handleOption(option)
+      this.handleCheckList(val, oldVal)
     }
   },
   computed: {
@@ -238,7 +226,6 @@ export default create({
       this.$nextTick(_ => {
         const optionDom = $d.getEle(`.hp-${this.dialogId} .hp-item-${parent.index}-${afterDomIndex}`)[0]
         const subGroupDom = $d.getEle(`.hp-${this.dialogId} .hp-item-list-${option.index}-${option.value}`)[0]
-        console.log(optionDom, subGroupDom)
         $d.insertAfter(subGroupDom, optionDom)
       })
     },
@@ -267,7 +254,30 @@ export default create({
         this.lastExpandChildren = option
       }
       option.toggle && this.expand(option, parent)
+    },
+    handleCheckList(val, oldVal) {
+      const valueAry = [..._.difference(val, oldVal), ..._.difference(oldVal, val)]
+      _.each(valueAry, value => {
+        const option = this.findGroupInGroups(value)
+        const checked = _.indexOf(this.checkList, option.value) >= 0
+        const handleOption = o => {
+          if (o.hasChildren) {
+            _.each(o.option, obj => {
+              obj.disabled = checked
+              obj.disabled && _.pull(this.checkList, obj.value)
+              if (obj.hasChildren) handleOption(obj)
+            })
+          }
+        }
+        handleOption(option)
+      })
     }
+  },
+  mounted() {
+    this.checkList.push(...this.value)
+    setTimeout(() => {
+      this.handleCheckList(this.checkList, [])
+    }, 0);
   }
 })
 </script>
