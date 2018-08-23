@@ -5,7 +5,7 @@
                      :title="title"
                      v-model="model"
                      @confirmClick="confirmClick"
-                     dialog-id="city"></checkbox-dialog>
+                     :dialog-id="dialogId||'city'"></checkbox-dialog>
   </div>
 </template>
 <script>
@@ -45,6 +45,10 @@ export default create({
     column: {
       type: Number,
       default: 6
+    },
+    dialogId: {
+      type: String,
+      default: ''
     }
   },
   methods: {
