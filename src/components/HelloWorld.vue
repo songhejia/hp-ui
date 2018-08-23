@@ -51,6 +51,12 @@
                     title="城市"
                     :limit="6"
                     dialog-id="city-2"></hp-city-dialog>
+    <hp-industry-dialog v-model="industry"
+                        @confirmClick="confirmIndustryClick"
+                        label="所在行业"
+                        title="所在行业"
+                        :limit="3"
+                        dialog-id="industry-1"></hp-industry-dialog>
   </div>
 </template>
 
@@ -62,7 +68,7 @@ import HeaderBar from "../../packages/header-bar";
 import IconButton from "../../packages/icon-button";
 import JobTypeDialog from "../../packages/job-type-dialog";
 import CityDialog from "../../packages/city-dialog";
-import { setTimeout } from 'timers';
+import IndustryDialog from "../../packages/industry-dialog";
 export default {
   name: "HelloWorld",
   data() {
@@ -88,7 +94,8 @@ export default {
       },
       jobType: ["4010200", "7001000", '095'],
       citys: ["530"],
-      citys2: []
+      citys2: [],
+      industry: ["210500", "120400", "160000"]
     };
   },
   components: {
@@ -98,7 +105,8 @@ export default {
     [HeaderBar.name]: HeaderBar,
     [IconButton.name]: IconButton,
     [JobTypeDialog.name]: JobTypeDialog,
-    [CityDialog.name]: CityDialog
+    [CityDialog.name]: CityDialog,
+    [IndustryDialog.name]: IndustryDialog
   },
   methods: {
     confirmClick(confirmList) {
@@ -108,6 +116,10 @@ export default {
     confirmCityClick(confirmList) {
       /* eslint-disable no-alert, no-console */
       console.log("confirmClick", this.citys2, confirmList);
+    },
+    confirmIndustryClick(confirmList) {
+      /* eslint-disable no-alert, no-console */
+      console.log("confirmClick", this.industry, confirmList);
     }
   },
   mounted() {
