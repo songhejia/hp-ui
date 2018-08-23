@@ -137,6 +137,7 @@ export default create({
     },
     value: {
       handler: function (val, oldVal) {
+        this.checkList = []
         _.each(val, v => (!_.includes(this.checkList, v)) && this.checkList.push(v))
       },
       immediate: true

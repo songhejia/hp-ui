@@ -11,14 +11,13 @@
   </div>
 </template>
 <script>
-import json from '../../local/job_type_relation.json'
+import jobTypeJson from '../../local/job_type_relation.json'
 import create from '../utils/create'
 import CheckboxDialog from '../checkbox-dialog'
 export default create({
   name: 'job-type-dialog',
   data() {
     return {
-      data: json,
       groups: [],
       selfModel: ''
     }
@@ -57,7 +56,7 @@ export default create({
   },
   methods: {
     loadData() {
-      const jobs = _.map(this.data, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
+      const jobs = _.map(jobTypeJson, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
       _.each(jobs, item => {
         const subItems = _.filter(jobs, { 'parent': item.value })
         if (_.size(subItems)) {

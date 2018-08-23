@@ -18,7 +18,6 @@ const config = {
   name: 'industry-dialog',
   data() {
     return {
-      industryData: industryJson,
       groups: [],
       selfModel: ''
     }
@@ -57,7 +56,7 @@ const config = {
   },
   methods: {
     loadData() {
-      const data = _.map(this.industryData, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
+      const data = _.map(industryJson, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
       const groups = []
       groups.push({
         label: '',

@@ -18,8 +18,6 @@ export default create({
   name: 'city-dialog',
   data() {
     return {
-      hotCityData: hotCityJson,
-      allCityData: allCityJson,
       groups: [],
       selfModel: ''
     }
@@ -58,8 +56,8 @@ export default create({
   },
   methods: {
     loadData() {
-      const allCitys = _.map(this.allCityData, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
-      const hotCitys = _.map(this.hotCityData, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
+      const allCitys = _.map(allCityJson, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
+      const hotCitys = _.map(hotCityJson, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] }))
 
       _.each(hotCitys, item => {
         let subItem = _.filter(allCitys, { 'parent': item.value })
@@ -92,6 +90,7 @@ export default create({
         hasChildren: true
       })
       this.groups = groups
+      console.log(this.groups)
     },
     confirmClick(confirmList) {
       this.$emit('confirmClick', confirmList)
