@@ -42,13 +42,15 @@
                     @confirmClick="confirmCityClick"
                     label="工作地点"
                     title="城市"
-                    :limit="6"></hp-city-dialog>
+                    :limit="6"
+                    dialog-id="city-1"></hp-city-dialog>
 
-    <hp-city-dialog v-model="citys"
+    <hp-city-dialog v-model="citys2"
                     @confirmClick="confirmCityClick"
                     label="工作地点"
                     title="城市"
-                    :limit="6"></hp-city-dialog>
+                    :limit="6"
+                    dialog-id="city-2"></hp-city-dialog>
   </div>
 </template>
 
@@ -60,6 +62,7 @@ import HeaderBar from "../../packages/header-bar";
 import IconButton from "../../packages/icon-button";
 import JobTypeDialog from "../../packages/job-type-dialog";
 import CityDialog from "../../packages/city-dialog";
+import { setTimeout } from 'timers';
 export default {
   name: "HelloWorld",
   data() {
@@ -83,8 +86,9 @@ export default {
         newJobCount: 8,
         jobOutCount: 1
       },
-      jobType: ["4010200", "7004000"],
-      citys: ["530"]
+      jobType: ["4010200", "7001000", '095'],
+      citys: ["530"],
+      citys2: []
     };
   },
   components: {
@@ -103,8 +107,13 @@ export default {
     },
     confirmCityClick(confirmList) {
       /* eslint-disable no-alert, no-console */
-      console.log("confirmClick", this.citys, confirmList);
+      console.log("confirmClick", this.citys2, confirmList);
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.citys2.push('530')
+    }, 1000);
   }
 };
 </script>

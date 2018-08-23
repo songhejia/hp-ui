@@ -132,8 +132,14 @@ export default create({
     value: Array
   },
   watch: {
-    checkList: function (val, oldVal) {
-      this.handleCheckList(val, oldVal)
+    checkListStr: function (val, oldVal) {
+      this.handleCheckList(JSON.parse(val), JSON.parse(oldVal))
+    },
+    value: {
+      handler: function (val, oldVal) {
+        _.each(val, v => (!_.includes(this.checkList, v)) && this.checkList.push(v))
+      },
+      immediate: true
     }
   },
   computed: {
@@ -153,6 +159,9 @@ export default create({
         return _.map(this.confirmObjList, 'label').join(';')
       },
       set() { }
+    },
+    checkListStr() {
+      return JSON.stringify(this.checkList)
     },
     groups: {
       get() {
@@ -272,12 +281,6 @@ export default create({
         handleOption(option)
       })
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.checkList.push(...this.value)
-      this.handleCheckList(this.checkList, [])
-    }, 0);
   }
 })
 </script>
