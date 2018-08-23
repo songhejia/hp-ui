@@ -6,7 +6,8 @@
                      :column='3'
                      v-model="model"
                      @confirmClick="confirmClick"
-                     :dialog-id="dialogId||'job-type'"></checkbox-dialog>
+                     :dialog-id="dialogId||'job-type'"
+                     :limit="limit"></checkbox-dialog>
   </div>
 </template>
 <script>
@@ -36,6 +37,10 @@ export default create({
     dialogId: {
       type: String,
       default: ''
+    },
+    limit: {
+      type: Number,
+      default: 3
     }
   },
   computed: {
