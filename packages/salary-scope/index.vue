@@ -1,6 +1,6 @@
 <template>
   <div class="hp-salary-scope">
-    <el-select v-model="selfModel"
+    <el-select v-model="model"
                placeholder="请选择"
                size="mini"
                @change="change">

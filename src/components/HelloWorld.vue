@@ -127,7 +127,7 @@ export default {
       console.log("confirmClick", this.industry, confirmList);
     },
     salaryChange(value, label) {
-      console.log(value, label)
+      console.log(value, label, this.salary)
     }
   },
   mounted() {
