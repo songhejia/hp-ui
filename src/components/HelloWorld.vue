@@ -57,6 +57,8 @@
                         title="所在行业"
                         :limit="3"
                         dialog-id="industry-1"></hp-industry-dialog>
+    <hp-salary-scope v-model="salary"
+                     @change="salaryChange"></hp-salary-scope>
   </div>
 </template>
 
@@ -69,6 +71,7 @@ import IconButton from "../../packages/icon-button";
 import JobTypeDialog from "../../packages/job-type-dialog";
 import CityDialog from "../../packages/city-dialog";
 import IndustryDialog from "../../packages/industry-dialog";
+import SalaryScope from "../../packages/salary-scope";
 export default {
   name: "HelloWorld",
   data() {
@@ -95,7 +98,8 @@ export default {
       jobType: ["4010200", "7001000", '095'],
       citys: ["530"],
       citys2: [],
-      industry: ["210500", "120400", "160000"]
+      industry: ["210500", "120400", "160000"],
+      salary: '0100002000'
     };
   },
   components: {
@@ -106,7 +110,8 @@ export default {
     [IconButton.name]: IconButton,
     [JobTypeDialog.name]: JobTypeDialog,
     [CityDialog.name]: CityDialog,
-    [IndustryDialog.name]: IndustryDialog
+    [IndustryDialog.name]: IndustryDialog,
+    [SalaryScope.name]: SalaryScope
   },
   methods: {
     confirmClick(confirmList) {
@@ -120,6 +125,9 @@ export default {
     confirmIndustryClick(confirmList) {
       /* eslint-disable no-alert, no-console */
       console.log("confirmClick", this.industry, confirmList);
+    },
+    salaryChange(value, label) {
+      console.log(value, label)
     }
   },
   mounted() {
