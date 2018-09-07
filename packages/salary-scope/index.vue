@@ -3,7 +3,8 @@
     <el-select v-model="model"
                placeholder="请选择"
                size="mini"
-               @change="change">
+               @change="change"
+               :disabled="disabled">
       <el-option v-for="item in salaryRange"
                  :key="item.value"
                  :label="item.label"
@@ -24,7 +25,12 @@ export default create({
     }
   },
   props: {
-    value: String
+    value: String,
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+
   },
   computed: {
     model: {
