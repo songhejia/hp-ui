@@ -47,7 +47,7 @@ export default create({
   methods: {
     loadData() {
       _.remove(salaryRangeData, (value) => value[0] === "0000000000")
-      this.salaryRange = _.sortBy(_.map(salaryRangeData, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] })), o => +o, value)
+      this.salaryRange = _.sortBy(_.map(salaryRangeData, item => ({ value: item[0], label: item[1], parent: item[2], order: item[3], option: [] })), o => +o.value)
     },
     change(value) {
       const label = _.find(this.salaryRange, { value: value }).label
