@@ -7,7 +7,8 @@
                      @confirmClick="confirmClick"
                      :dialog-id="dialogId||'industry'"
                      :limit="limit"
-                     :column="column"></checkbox-dialog>
+                     :column="column"
+                     :placeholder="placeholder"></checkbox-dialog>
   </div>
 </template>
 <script>
@@ -52,6 +53,10 @@ const config = {
     limit: {
       type: Number,
       default: 3
+    },
+    placeholder: {
+      type: String,
+      default: '请选择'
     }
   },
   methods: {
