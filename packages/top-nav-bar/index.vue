@@ -11,7 +11,8 @@
           <i class="fa fa-reorder top-nav-bar-brand-icon"></i>
           <span>卓聘</span>
         </div>
-        <div slot="item-2">
+        <div slot="item-2"
+             :style="{width:(menus.length*100)+'px'}">
           <menu-list :menus="menus"
                      dark
                      class="top-nav-bar-menu">
@@ -28,10 +29,6 @@
             <el-dropdown trigger="hover"
                          @command="handleCommand">
               <span class="el-dropdown-link">
-                <!-- <zp-icon-button tool-tip=""
-                                name="bell"
-                                hover='square'
-                                dark/> -->
                 <icon-button class="alert-bell"
                              name="bell"
                              hover='square' />
@@ -129,9 +126,6 @@ export default create({
   &-container {
     > .hp-layout-item-1 {
       width: 80px;
-    }
-    > .hp-layout-item-2 {
-      width: 330px;
     }
     > .hp-layout-item-3 {
       text-align: right;
