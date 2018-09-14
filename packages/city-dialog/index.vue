@@ -6,7 +6,8 @@
                      v-model="model"
                      @confirmClick="confirmClick"
                      :dialog-id="dialogId||'city'"
-                     :limit="limit"></checkbox-dialog>
+                     :limit="limit"
+                     :placeholder="placeholder"></checkbox-dialog>
   </div>
 </template>
 <script>
@@ -52,6 +53,10 @@ export default create({
     limit: {
       type: Number,
       default: 3
+    },
+    placeholder: {
+      type: String,
+      default: '请选择'
     }
   },
   methods: {

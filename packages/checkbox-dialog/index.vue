@@ -5,7 +5,7 @@
       <el-input @focus="dialogVisible = true"
                 v-model="confirmText"
                 size="mini"
-                placeholder="请选择"
+                :placeholder="placeholder"
                 :readonly="true">
         <i slot="suffix"
            class="el-icon-arrow-down el-input__icon"
@@ -129,7 +129,11 @@ export default create({
         return true
       }
     },
-    value: Array
+    value: Array,
+    placeholder: {
+      type: String,
+      default: '请选择'
+    }
   },
   watch: {
     checkListStr: function (val, oldVal) {
