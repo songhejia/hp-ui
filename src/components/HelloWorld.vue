@@ -59,6 +59,7 @@
                         dialog-id="industry-1"></hp-industry-dialog>
     <hp-salary-scope v-model="salary"
                      @change="salaryChange"></hp-salary-scope>
+    <hp-edu-select v-model="edu"></hp-edu-select>
   </div>
 </template>
 
@@ -72,6 +73,7 @@ import JobTypeDialog from "../../packages/job-type-dialog";
 import CityDialog from "../../packages/city-dialog";
 import IndustryDialog from "../../packages/industry-dialog";
 import SalaryScope from "../../packages/salary-scope";
+import EduSelect from "../../packages/edu-select";
 export default {
   name: "HelloWorld",
   data() {
@@ -99,7 +101,8 @@ export default {
       citys: ["530"],
       citys2: [],
       industry: ["210500", "120400", "160000"],
-      salary: '0100002000'
+      salary: '0100002000',
+      edu: '1'
     };
   },
   components: {
@@ -111,7 +114,8 @@ export default {
     [JobTypeDialog.name]: JobTypeDialog,
     [CityDialog.name]: CityDialog,
     [IndustryDialog.name]: IndustryDialog,
-    [SalaryScope.name]: SalaryScope
+    [SalaryScope.name]: SalaryScope,
+    [EduSelect.name]: EduSelect
   },
   methods: {
     confirmClick(confirmList) {
