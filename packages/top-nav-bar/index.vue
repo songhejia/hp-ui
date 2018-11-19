@@ -9,7 +9,7 @@
         <div slot="item-1"
              class="top-nav-bar-brand">
           <i class="fa fa-reorder top-nav-bar-brand-icon"></i>
-          <span>卓聘</span>
+          <span>{{title}}</span>
         </div>
         <div slot="item-2"
              :style="{width:(menus.length*100)+'px'}">
@@ -21,6 +21,7 @@
 
         <div slot="item-3"
              class="top-nav-bar-tools">
+          <div slot="user-info"></div>
           <el-badge ref='ref1'
                     :value="letterTotal"
                     :hidden="!letterTotal"
@@ -99,6 +100,10 @@ export default create({
     settingShow: {
       type: Boolean,
       default: false
+    },
+    title: {
+      type: String,
+      default: '卓聘'
     }
   },
   methods: {
