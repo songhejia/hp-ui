@@ -10,6 +10,8 @@
              class="top-nav-bar-brand">
           <i class="fa fa-reorder top-nav-bar-brand-icon"></i>
           <span>{{title}}</span>
+          <span class="version"
+                v-if="version">{{version}}</span>
         </div>
         <div slot="item-2"
              :style="{width:(menus.length*100)+'px'}">
@@ -104,7 +106,8 @@ export default create({
     title: {
       type: String,
       default: '卓聘'
-    }
+    },
+    version: String
   },
   methods: {
     handleCommand(command) {
