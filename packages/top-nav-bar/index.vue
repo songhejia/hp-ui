@@ -23,7 +23,8 @@
 
         <div slot="item-3"
              class="top-nav-bar-tools">
-          <div slot="user-info"></div>
+          <slot name="user-info">
+          </slot>
           <el-badge ref='ref1'
                     :value="letterTotal"
                     :hidden="!letterTotal"
