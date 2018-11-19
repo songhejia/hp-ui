@@ -23,7 +23,8 @@
 
         <div slot="item-3"
              class="top-nav-bar-tools">
-          <slot name="user-info">
+          <slot name="user-info"
+                :user="user">
           </slot>
           <el-badge ref='ref1'
                     :value="letterTotal"
@@ -108,7 +109,8 @@ export default create({
       type: String,
       default: '卓聘'
     },
-    version: String
+    version: String,
+    user: Object
   },
   methods: {
     handleCommand(command) {
